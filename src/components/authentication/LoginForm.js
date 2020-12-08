@@ -16,7 +16,9 @@ function LoginForm(props) {
 			.post("http://localhost:3000/login", { username: username.value, password: password.value })
 			.then((response) => {
 				setLoading(false);
-				setUserSession(response.data.token, response.data.user);
+				setUserSession(response.data.token, response.data.user.id);
+				// axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+				localStorage.setItem("token", response.data.token);
 				props.history.push("/board");
 			})
 			.catch((error) => {
