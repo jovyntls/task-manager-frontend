@@ -1,11 +1,16 @@
 import "./App.css";
+import { removeUserSession } from "./Utils/Common";
 
 function App(props) {
 	const subject = props.subject;
 
+	// const logout = () => removeUserSession();
+
 	return (
 		<div className="App">
-			sign out
+			<div style={{ "background-color": "powderblue" }}>
+				<button onClick={removeUserSession}>sign out</button>
+			</div>
 			<header className="App-header">
 				<p>Hello {subject}!</p>
 			</header>
