@@ -12,15 +12,17 @@ class Task extends React.Component {
 	}
 	handleKeyDown = (event) => {
 		if (event.key === 'Enter') {
-			console.log("saved: ", this.state.title)
-			console.log(this.props.data.id)
-			PostService.editTaskTitle({id: this.props.data.id, title: this.state.title})
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((err) => console.log(err));
+			this.submitEdit()
 		}
-	  }
+	}
+	submitEdit = () => {
+		console.log("saved: ", this.state.title)
+		PostService.editTaskTitle({id: this.props.data.id, title: this.state.title})
+		.then((response) => {
+			return response;
+		})
+		.catch((err) => console.log(err));
+	}
 	render() {
 		return (
 			<div>
@@ -31,6 +33,7 @@ class Task extends React.Component {
 				defaultValue={this.props.data.title}
 				onChange={this.handleChange}
 				onKeyDown={this.handleKeyDown}
+				onBlur={this.submitEdit}
 				></input>
 			</div>
 		)
