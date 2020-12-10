@@ -22,12 +22,12 @@ class BoardView extends React.Component {
 			.catch((err) => console.log(err));
 	}
 	isValidArray(data) {
-		return !Array.isArray(data) || !data.length;
+		return Array.isArray(data) && data.length !== 0;
 	}
 	showCards(data) {
-		return this.isValidArray(data)
-			? ""
-			: data.map((item) => <Card title={item.title} tasks={this.state.tasks.filter((x) => x.cat_id == item.id)} />);
+		return this.isValidArray(data) && this.isValidArray(this.state.tasks)
+			? data.map((item, i) => <Card key={i} cat={item} tasks={this.state.tasks.filter((x) => x.cat_id == item.id)} />)
+			: "";
 	}
 	render() {
 		return (

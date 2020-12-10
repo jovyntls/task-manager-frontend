@@ -7,6 +7,9 @@ export default {
 	fetchCats() {
 		return Api().get("cats");
 	},
+	editTaskTitle(params) {
+		return Api().put("tasks/" + params.id, params);
+	},
 	// signUpUser(params) {
 	// 	return Api().post("sign-up", params);
 	// },
