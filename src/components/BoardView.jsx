@@ -5,6 +5,18 @@ import Card from "./Card";
 
 function BoardView() {
 	const [cats, setCats] = useState([]);
+	const [board_refresh, setBoardRefresh] = useState(false);
+
+	const isValidArray = (data) => {
+		return Array.isArray(data) && data.length !== 0;
+	};
+
+	const refreshBoard = () => {
+		setBoardRefresh(!board_refresh);
+		fetchCards();
+	};
+
+	// API calls for editing categories
 	const fetchCards = () => {
 		PostService.fetchCats()
 			.then((response) => {
@@ -12,20 +24,23 @@ function BoardView() {
 			})
 			.catch((err) => console.log(err));
 	};
-	const isValidArray = (data) => {
-		return Array.isArray(data) && data.length !== 0;
-	};
 	const showCards = () => {
-		return isValidArray(cats) ? cats.map((cat) => <Card key={cat.id} cat={cat} />) : "";
+		return isValidArray(cats) ? cats.map((cat) => <Card key={cat.id} cat={cat} refresher={refreshBoard} />) : "";
 	};
+	const newCard = () => {
+		PostService.addNewCard({ title: "test card" });
+		refreshBoard();
+	};
+
 	useEffect(() => {
 		fetchCards();
-	}, []);
+	}, [board_refresh]);
 
 	return (
 		<div>
 			<div>HELLO BOARD VIEW</div>
 			{showCards()}
+			<button onClick={newCard}>new category</button>
 		</div>
 	);
 }

@@ -7,9 +7,6 @@ export default {
 	fetchTasksFromCat(cat_id) {
 		return Api().get("tasks/cat/" + cat_id);
 	},
-	fetchCats() {
-		return Api().get("cats");
-	},
 	editTask(params) {
 		return Api().put("tasks/" + params.id, params);
 	},
@@ -19,16 +16,17 @@ export default {
 	deleteTask(id) {
 		return Api().delete("tasks/" + id);
 	},
-	// signUpUser(params) {
-	// 	return Api().post("sign-up", params);
-	// },
-	// logInUser(params) {
-	// 	return Api().post("log-in", params); //, { withCredentials: true }
-	// },
-	// logout() {
-	// 	return Api().get("logout", { withCredentials: true });
-	// },
-	// addUser(params) {
-	// 	return Api().post("users", params);
-	// },
+
+	fetchCats() {
+		return Api().get("cats");
+	},
+	addNewCard(params) {
+		return Api().post("cats", params)
+	},
+	deleteCard(id) {
+		return Api().delete("cats/" + id);
+	},
+	editCard(params) {
+		return Api().put("cats/" + params.id, params)
+	}
 };
