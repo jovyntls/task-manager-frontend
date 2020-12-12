@@ -15,7 +15,6 @@ function Card(props) {
 		PostService.fetchTasksFromCat(props.cat.id)
 			.then((res) => {
 				setTasks(res.data);
-				console.log("tasks set state");
 			})
 			.catch((err) => {
 				console.log(err);
