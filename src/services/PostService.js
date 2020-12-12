@@ -10,7 +10,7 @@ export default {
 	fetchCats() {
 		return Api().get("cats");
 	},
-	editTaskTitle(params) {
+	editTask(params) {
 		return Api().put("tasks/" + params.id, params);
 	},
 	addNewTask(params) {
