@@ -1,7 +1,6 @@
 import "../App.css";
 import PostService from "../services/PostService";
 import React from "react";
-import Task from "./Task";
 import Card from "./Card";
 
 class BoardView extends React.Component {
@@ -26,7 +25,7 @@ class BoardView extends React.Component {
 	}
 	showCards(data) {
 		return this.isValidArray(data) && this.isValidArray(this.state.tasks)
-			? data.map((item, i) => <Card key={i} cat={item} tasks={this.state.tasks.filter((x) => x.cat_id == item.id)} />)
+			? data.map((item, i) => <Card key={i} cat={item} tasks={this.state.tasks} />)
 			: "";
 	}
 	render() {

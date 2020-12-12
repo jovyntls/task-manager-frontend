@@ -10,6 +10,9 @@ export default {
 	editTaskTitle(params) {
 		return Api().put("tasks/" + params.id, params);
 	},
+	addNewTask(params) {
+		return Api().post("tasks", params);
+	},
 	// signUpUser(params) {
 	// 	return Api().post("sign-up", params);
 	// },

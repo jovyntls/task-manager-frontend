@@ -2,10 +2,9 @@ import "../App.css";
 import React from "react";
 import PostService from "../services/PostService";
 
-class Task extends React.Component {
+class NewTask extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { title: this.props.data.title };
 	}
 	handleChange = (event) => {
 		this.setState({ title: event.target.value });
@@ -13,11 +12,12 @@ class Task extends React.Component {
 	handleKeyDown = (event) => {
 		if (event.key === "Enter") {
 			this.submitEdit();
+			this.props.handler();
 		}
 	};
 	submitEdit = () => {
 		console.log("saved: ", this.state.title);
-		PostService.editTaskTitle({ id: this.props.data.id, title: this.state.title })
+		PostService.addNewTask({ cat_id: this.props.cat_id, title: this.state.title })
 			.then((response) => {
 				return response;
 			})
@@ -30,13 +30,12 @@ class Task extends React.Component {
 				<input
 					type="text"
 					className="form-control-plaintext"
-					defaultValue={this.props.data.title}
+					defaultValue=""
 					onChange={this.handleChange}
 					onKeyDown={this.handleKeyDown}
-					onBlur={this.submitEdit}
 				></input>
 			</div>
 		);
 	}
 }
-export default Task;
+export default NewTask;
