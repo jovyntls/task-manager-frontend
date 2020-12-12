@@ -1,39 +1,47 @@
 import "../App.css";
 import PostService from "../services/PostService";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
 
-class Card extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { refresh: false };
-	}
+function Card(props) {
+	const [refresh, setRefresh] = useState(false);
+	const [tasks, setTasks] = useState([]);
 
-	isValidArray(data) {
+	const isValidArray = (data) => {
 		return !Array.isArray(data) || !data.length;
-	}
-	showTasks(data) {
-		return this.isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} />);
-	}
-	handler = () => {
-		console.log(this.state.refresh);
-		this.setState({ refresh: !this.state.refresh });
-		this.props.tasks = this.props.tasks[0];
+	};
+	const getTasks = () => {
+		PostService.fetchTasksFromCat(props.cat.id)
+			.then((res) => {
+				setTasks(res.data);
+				console.log("tasks set state");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+	const showTasks = (data) => {
+		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} />);
+	};
+	const refreshTasks = () => {
+		setRefresh(!refresh);
+		getTasks();
 	};
 
-	render() {
-		return (
-			<div style={{ border: "1px solid steelblue" }}>
-				<strong>{this.props.cat.title}</strong>
-				{this.showTasks(this.props.tasks.filter((x) => x.cat_id == this.props.cat.id))}
+	useEffect(() => {
+		getTasks();
+	}, [refresh]);
 
-				<sub>new task:</sub>
-				<NewTask cat_id={this.props.cat.id} handler={this.handler} />
-				<button onClick={this.handler}>click</button>
-			</div>
-		);
-	}
+	return (
+		<div style={{ border: "1px solid steelblue" }}>
+			<strong>{props.cat.title}</strong>
+			{showTasks(tasks)}
+
+			<sub>new task:</sub>
+			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
+		</div>
+	);
 }
 
 export default Card;

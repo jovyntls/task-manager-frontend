@@ -24,9 +24,7 @@ class BoardView extends React.Component {
 		return Array.isArray(data) && data.length !== 0;
 	}
 	showCards(data) {
-		return this.isValidArray(data) && this.isValidArray(this.state.tasks)
-			? data.map((item, i) => <Card key={i} cat={item} tasks={this.state.tasks} />)
-			: "";
+		return this.isValidArray(data) ? data.map((item, i) => <Card key={i} cat={item} />) : "";
 	}
 	render() {
 		return (

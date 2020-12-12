@@ -4,6 +4,9 @@ export default {
 	fetchTasks() {
 		return Api().get("tasks");
 	},
+	fetchTasksFromCat(cat_id) {
+		return Api().get("tasks/cat/" + cat_id);
+	},
 	fetchCats() {
 		return Api().get("cats");
 	},

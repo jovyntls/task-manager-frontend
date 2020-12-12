@@ -1,41 +1,43 @@
 import "../App.css";
-import React from "react";
+import React, { useState } from "react";
 import PostService from "../services/PostService";
 
-class NewTask extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	handleChange = (event) => {
-		this.setState({ title: event.target.value });
+function NewTask(props) {
+	const [title, setTitle] = useState("");
+	const handleChange = (event) => {
+		setTitle(event.target.value);
 	};
-	handleKeyDown = (event) => {
+	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
-			this.submitEdit();
-			this.props.handler();
+			submitEdit();
+			resetInput();
+			// setTitle("");
+			props.refresher();
 		}
 	};
-	submitEdit = () => {
-		console.log("saved: ", this.state.title);
-		PostService.addNewTask({ cat_id: this.props.cat_id, title: this.state.title })
+	const submitEdit = () => {
+		console.log("saved: ", title);
+		PostService.addNewTask({ cat_id: props.cat_id, title: title })
 			.then((response) => {
 				return response;
 			})
 			.catch((err) => console.log(err));
 	};
-	render() {
-		return (
-			<div>
-				<input type="checkbox"></input>
-				<input
-					type="text"
-					className="form-control-plaintext"
-					defaultValue=""
-					onChange={this.handleChange}
-					onKeyDown={this.handleKeyDown}
-				></input>
-			</div>
-		);
-	}
+	const resetInput = () => {
+		document.getElementById("new-task-input").value = "";
+	};
+	return (
+		<div>
+			<input type="checkbox"></input>
+			<input
+				type="text"
+				id="new-task-input"
+				className="form-control-plaintext"
+				defaultValue=""
+				onChange={handleChange}
+				onKeyDown={handleKeyDown}
+			></input>
+		</div>
+	);
 }
 export default NewTask;
