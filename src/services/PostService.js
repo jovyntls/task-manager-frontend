@@ -16,6 +16,9 @@ export default {
 	addNewTask(params) {
 		return Api().post("tasks", params);
 	},
+	deleteTask(id) {
+		return Api().delete("tasks/" + id);
+	},
 	// signUpUser(params) {
 	// 	return Api().post("sign-up", params);
 	// },

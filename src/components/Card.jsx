@@ -21,7 +21,7 @@ function Card(props) {
 			});
 	};
 	const showTasks = (data) => {
-		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} />);
+		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} refresher={refreshTasks} />);
 	};
 	const refreshTasks = () => {
 		setRefresh(!refresh);

@@ -12,7 +12,6 @@ function BoardView() {
 			})
 			.catch((err) => console.log(err));
 	};
-
 	const isValidArray = (data) => {
 		return Array.isArray(data) && data.length !== 0;
 	};
@@ -22,6 +21,7 @@ function BoardView() {
 	useEffect(() => {
 		fetchCards();
 	}, []);
+
 	return (
 		<div>
 			<div>HELLO BOARD VIEW</div>

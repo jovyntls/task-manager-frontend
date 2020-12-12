@@ -10,8 +10,7 @@ function NewTask(props) {
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
 			submitEdit();
-			resetInput();
-			// setTitle("");
+			setTitle("");
 			props.refresher();
 		}
 	};
@@ -23,17 +22,13 @@ function NewTask(props) {
 			})
 			.catch((err) => console.log(err));
 	};
-	const resetInput = () => {
-		document.getElementById("new-task-input").value = "";
-	};
 	return (
 		<div>
 			<input type="checkbox"></input>
 			<input
 				type="text"
-				id="new-task-input"
 				className="form-control-plaintext"
-				defaultValue=""
+				value={title}
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 			></input>

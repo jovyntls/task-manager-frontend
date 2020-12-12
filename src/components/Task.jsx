@@ -12,6 +12,7 @@ function Task(props) {
 			submitEdit();
 		}
 	};
+
 	const submitEdit = () => {
 		console.log("saved: ", title);
 		PostService.editTaskTitle({ id: props.data.id, title: title })
@@ -20,6 +21,15 @@ function Task(props) {
 			})
 			.catch((err) => console.log(err));
 	};
+
+	const submitDelete = () => {
+		PostService.deleteTask(props.data.id)
+			.then(() => {
+				props.refresher();
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div>
 			<input type="checkbox"></input>
@@ -31,6 +41,7 @@ function Task(props) {
 				onKeyDown={handleKeyDown}
 				onBlur={submitEdit}
 			></input>
+			<button onClick={submitDelete}>x</button>
 		</div>
 	);
 }
