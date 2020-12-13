@@ -19,6 +19,7 @@ function Card(props) {
 		PostService.fetchTasksFromCat(props.cat.id)
 			.then((res) => {
 				setTasks(res.data);
+				props.refreshLayout();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -57,7 +58,8 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		<div className="card col-sm-6 col-md-4">
+		// <div className="card col-sm-6 col-md-4">
+		<div className="card">
 			<div className="row d-flex">
 				<input
 					className="card__title flex-grow-1"
