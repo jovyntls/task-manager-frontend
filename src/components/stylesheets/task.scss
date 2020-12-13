@@ -12,6 +12,11 @@
 	border: 0;
 }
 
+.task__title--completed {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
 .task__delete {
 	padding: 0 5px;
 	background-color: transparent;
@@ -33,7 +38,7 @@
 .task__checkbox--low {
 	color: $priority-low;
 }
-.task__checkbox:disabled {
+.task__checkbox--completed {
 	color: $inactive;
 }
 
