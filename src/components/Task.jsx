@@ -24,7 +24,6 @@ function Task(props) {
 	const priorityClass = (prefix) => {
 		const priority_map = ["low", "med", "high"];
 		return `${prefix} ${prefix}--${completed ? "completed" : priority_map[priority]}`;
-		// return prefix + "" + completed ? prefix : prefix + " " + prefix + "--" + priority_map[priority];
 	};
 	const resizeTextarea = () => {
 		const elem = document.getElementById("task-title-" + props.data.id);
@@ -68,7 +67,7 @@ function Task(props) {
 			<button className={priorityClass("task__priority")} onClick={submitPriority} disabled={completed}></button>
 			<textarea
 				rows="1"
-				className={`flex-grow-1 task__title ${completed ? "task__title--completed" : ""}`}
+				className={`flex-grow-1 target-for-hover task__title ${completed ? "task__title--completed" : ""}`}
 				id={"task-title-" + props.data.id}
 				type="text"
 				defaultValue={props.data.title}
@@ -76,7 +75,7 @@ function Task(props) {
 				onKeyDown={handleKeyDown}
 				onBlur={submitEdit}
 			></textarea>
-			<button className="task__delete" onClick={submitDelete}>
+			<button className="task__delete show-on-hover" onClick={submitDelete}>
 				<i className="material-icons align-middle">clear</i>
 			</button>
 		</div>
