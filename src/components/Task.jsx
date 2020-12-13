@@ -60,7 +60,7 @@ function Task(props) {
 	}, []);
 
 	return (
-		<div className="row task__row d-flex">
+		<div className="task__row d-flex">
 			<button className={priorityClass("task__checkbox")} onClick={submitCompleted} disabled={completed}>
 				<i className="material-icons align-middle">{completed ? "check_circle" : "radio_button_unchecked"}</i>
 			</button>

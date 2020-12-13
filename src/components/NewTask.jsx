@@ -37,7 +37,7 @@ function NewTask(props) {
 	};
 
 	return (
-		<div className="row d-flex">
+		<div className="d-flex">
 			<button className="task__checkbox" disabled>
 				<i className="material-icons align-middle">create</i>
 			</button>

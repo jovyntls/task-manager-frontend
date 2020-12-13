@@ -18,6 +18,9 @@ function BoardView() {
 		setBoardRefresh(!board_refresh);
 		fetchCards();
 	};
+	const refreshLayout = () => {
+		waterfall[0].updateLayout();
+	};
 
 	// API calls for editing categories
 	const fetchCards = () => {
@@ -30,16 +33,12 @@ function BoardView() {
 	};
 	const showCards = () => {
 		return isValidArray(cats)
-			? cats.map((cat) => <Card key={cat.id} cat={cat} refresher={refreshBoard} refreshLayout={upup} />)
+			? cats.map((cat) => <Card key={cat.id} cat={cat} refresher={refreshBoard} refreshLayout={refreshLayout} />)
 			: "";
 	};
 	const newCard = () => {
 		PostService.addNewCard({ title: "test card" });
 		refreshBoard();
-	};
-
-	const upup = () => {
-		waterfall[0].updateLayout();
 	};
 
 	useEffect(() => {
@@ -55,20 +54,16 @@ function BoardView() {
 		<div>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 			<div>HELLO BOARD VIEW</div>
-			{/* <div className="row p-3">
-				{showCards()}
-				<button onClick={newCard}>new category</button>
-			</div> */}
 			<StackGrid
 				gridRef={(grid) => {
 					setWaterfall([grid]);
 				}}
 				columnWidth="33.33%"
-				gutterWidth={20}
+				gutterWidth={10}
+				gutterHeight={10}
 			>
 				{showCards()}
 				<button onClick={newCard}>new category</button>
-				<button onClick={upup}>clicksdj</button>
 			</StackGrid>
 		</div>
 	);

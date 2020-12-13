@@ -1,14 +1,14 @@
 @import "./variables";
 
 .task__row {
-	border-bottom: 1px solid $inactive;
+	border-bottom: 1px solid $divider;
 }
 
 .task__title {
 	resize: none !important;
 	overflow: hidden !important;
-	line-height: 1.1em;
-	padding: 8px;
+	line-height: 1em;
+	padding: 9px;
 	border: 0;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .task__checkbox {
-	padding: 0;
+	padding: 5px;
 	background-color: transparent;
 	border: 0;
 }

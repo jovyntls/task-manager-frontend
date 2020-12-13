@@ -58,9 +58,8 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		// <div className="card col-sm-6 col-md-4">
-		<div className="card">
-			<div className="row d-flex">
+		<div className="card p-3">
+			<div className="d-flex">
 				<input
 					className="card__title flex-grow-1"
 					type="text"
