@@ -23,7 +23,7 @@ function Task(props) {
 	// css class helpers
 	const priorityClass = (prefix) => {
 		const priority_map = ["low", "med", "high"];
-		return completed ? prefix : prefix + " " + prefix + "--" + priority_map[priority];
+		return `${prefix} ${prefix}--${completed ? "completed" : priority_map[priority]}`;
 	};
 	const resizeTextarea = () => {
 		const elem = document.getElementById("task-title-" + props.data.id);
@@ -61,13 +61,13 @@ function Task(props) {
 
 	return (
 		<div className="task__row d-flex">
-			<button className={priorityClass("task__checkbox")} onClick={submitCompleted} disabled={completed}>
+			<button className={priorityClass("task__checkbox")} onClick={submitCompleted}>
 				<i className="material-icons align-middle">{completed ? "check_circle" : "radio_button_unchecked"}</i>
 			</button>
 			<button className={priorityClass("task__priority")} onClick={submitPriority} disabled={completed}></button>
 			<textarea
 				rows="1"
-				className="task__title flex-grow-1"
+				className={`flex-grow-1 target-for-hover task__title ${completed ? "task__title--completed" : ""}`}
 				id={"task-title-" + props.data.id}
 				type="text"
 				defaultValue={props.data.title}
@@ -75,7 +75,7 @@ function Task(props) {
 				onKeyDown={handleKeyDown}
 				onBlur={submitEdit}
 			></textarea>
-			<button className="task__delete" onClick={submitDelete}>
+			<button className="task__delete show-on-hover" onClick={submitDelete}>
 				<i className="material-icons align-middle">clear</i>
 			</button>
 		</div>

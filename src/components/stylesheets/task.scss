@@ -12,6 +12,11 @@
 	border: 0;
 }
 
+.task__title--completed {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
 .task__delete {
 	padding: 0 5px;
 	background-color: transparent;
@@ -33,7 +38,7 @@
 .task__checkbox--low {
 	color: $priority-low;
 }
-.task__checkbox:disabled {
+.task__checkbox--completed {
 	color: $inactive;
 }
 
@@ -57,5 +62,20 @@
 
 button:focus {
 	outline: 0 !important;
-	// box-shadow: 1px 1px black;
+}
+
+.target-for-hover {
+	display: block;
+}
+
+.target-for-hover:hover + .show-on-hover {
+	display: block;
+}
+
+.show-on-hover {
+	display: none;
+}
+
+.show-on-hover:hover {
+	display: block;
 }

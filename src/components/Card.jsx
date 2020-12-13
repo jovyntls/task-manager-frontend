@@ -3,6 +3,7 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./stylesheets/card.scss";
 
 function Card(props) {
@@ -58,7 +59,7 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		<div className="card p-3">
+		<div className="card my-card p-3">
 			<div className="d-flex">
 				<input
 					className="card__title flex-grow-1"
@@ -69,7 +70,22 @@ function Card(props) {
 					onKeyDown={handleKeyDown}
 					onBlur={submitEdit}
 				></input>
-				<button onClick={deleteCard}>x</button>
+				<div className="dropdown">
+					<button className="menu__icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i className="material-icons align-middle">more_horiz</i>
+					</button>
+					<div className="menu__items dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+						<a className="dropdown-item" href="#" onClick={deleteCard}>
+							Delete this card
+						</a>
+						<a className="dropdown-item" href="#">
+							Edit tags
+						</a>
+						<a className="dropdown-item" href="#">
+							Clear completed
+						</a>
+					</div>
+				</div>
 			</div>
 
 			{showTasks(tasks)}

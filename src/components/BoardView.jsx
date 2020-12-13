@@ -1,6 +1,6 @@
 import "../App.css";
 import PostService from "../services/PostService";
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
 
@@ -44,11 +44,6 @@ function BoardView() {
 	useEffect(() => {
 		fetchCards();
 	}, [board_refresh]);
-	useLayoutEffect(() => {
-		const nf = () => null;
-		console.log("layoutrefresh:", layout_refresh);
-		console.log(waterfall);
-	}, [waterfall]);
 
 	return (
 		<div>
@@ -63,7 +58,9 @@ function BoardView() {
 				gutterHeight={10}
 			>
 				{showCards()}
-				<button onClick={newCard}>new category</button>
+				<button className="new-card" onClick={newCard}>
+					<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+				</button>
 			</StackGrid>
 		</div>
 	);
