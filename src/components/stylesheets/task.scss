@@ -1,0 +1,66 @@
+@import "./variables";
+
+.task__row {
+	border-bottom: 1px solid $divider;
+}
+
+.task__title {
+	resize: none !important;
+	overflow: hidden !important;
+	line-height: 1em;
+	padding: 9px;
+	border: 0;
+}
+
+.task__title--completed {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
+.task__delete {
+	padding: 0 5px;
+	background-color: transparent;
+	border: 0;
+	color: $error;
+}
+
+.task__checkbox {
+	padding: 5px;
+	background-color: transparent;
+	border: 0;
+}
+.task__checkbox--high {
+	color: $priority-high;
+}
+.task__checkbox--med {
+	color: $priority-med;
+}
+.task__checkbox--low {
+	color: $priority-low;
+}
+.task__checkbox--completed {
+	color: $inactive;
+}
+
+.task__priority {
+	padding: 0;
+	border: 0;
+	width: 10px;
+}
+.task__priority--high {
+	background-color: $priority-high;
+}
+.task__priority--med {
+	background-color: $priority-med;
+}
+.task__priority--low {
+	background-color: $priority-low;
+}
+.task__priority:disabled {
+	background-color: $inactive;
+}
+
+button:focus {
+	outline: 0 !important;
+	// box-shadow: 1px 1px black;
+}

@@ -3,6 +3,7 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import "./stylesheets/card.scss";
 
 function Card(props) {
 	const [refresh, setRefresh] = useState(false);
@@ -18,6 +19,7 @@ function Card(props) {
 		PostService.fetchTasksFromCat(props.cat.id)
 			.then((res) => {
 				setTasks(res.data);
+				props.refreshLayout();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -56,20 +58,21 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		<div style={{ border: "1px solid steelblue" }}>
-			<strong>{props.cat.title}</strong>
-			<input
-				type="text"
-				className="form-control-plaintext"
-				defaultValue={props.cat.title}
-				onChange={handleChange}
-				onKeyDown={handleKeyDown}
-				onBlur={submitEdit}
-			></input>
-			<button onClick={deleteCard}>x</button>
-			{showTasks(tasks)}
+		<div className="card p-3">
+			<div className="d-flex">
+				<input
+					className="card__title flex-grow-1"
+					type="text"
+					defaultValue={props.cat.title}
+					placeholder="New Title"
+					onChange={handleChange}
+					onKeyDown={handleKeyDown}
+					onBlur={submitEdit}
+				></input>
+				<button onClick={deleteCard}>x</button>
+			</div>
 
-			<sub>new task:</sub>
+			{showTasks(tasks)}
 			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
 		</div>
 	);

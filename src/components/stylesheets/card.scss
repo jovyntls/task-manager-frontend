@@ -1,0 +1,22 @@
+@import "./variables";
+
+.card__title {
+	font-weight: bold;
+	font-size: 1.3em;
+	border: 0px;
+	padding: 5px;
+}
+
+.new-card {
+	border: 1px dashed $divider;
+	width: 100%;
+	padding: 10px;
+	border-radius: 3px;
+	background-color: transparent;
+	color: $divider;
+}
+
+.new-card__icon {
+	font-size: 3em !important;
+	font-weight: lighter;
+}

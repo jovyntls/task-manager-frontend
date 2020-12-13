@@ -1,6 +1,7 @@
 import Api from "./Api";
 
 export default {
+	// TASKS
 	fetchTasks() {
 		return Api().get("tasks");
 	},
@@ -17,6 +18,7 @@ export default {
 		return Api().delete("tasks/" + id);
 	},
 
+	// CATEGORIES
 	fetchCats() {
 		return Api().get("cats");
 	},

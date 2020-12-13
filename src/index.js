@@ -7,7 +7,7 @@ import BoardView from "./components/BoardView";
 import LoginForm from "./components/authentication/LoginForm";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
-// import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
 	<React.StrictMode>
