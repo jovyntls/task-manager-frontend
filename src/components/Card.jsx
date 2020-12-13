@@ -56,11 +56,9 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		<div style={{ border: "1px solid steelblue" }}>
-			<strong>{props.cat.title}</strong>
+		<div style={{ border: "1px solid steelblue" }} className="col-sm-6 col-md-4">
 			<input
 				type="text"
-				className="form-control-plaintext"
 				defaultValue={props.cat.title}
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
@@ -68,7 +66,7 @@ function Card(props) {
 			></input>
 			<button onClick={deleteCard}>x</button>
 			{showTasks(tasks)}
-
+			<br />
 			<sub>new task:</sub>
 			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
 		</div>

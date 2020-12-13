@@ -1,13 +1,18 @@
 import "../App.css";
 import React, { useEffect, useState } from "react";
 import PostService from "../services/PostService";
+import "./stylesheets/task.scss";
+import "./stylesheets/checkbox.css";
 
 function Task(props) {
 	const [title, setTitle] = useState(props.data.title);
 	const [completed, setCompleted] = useState(props.data.completed);
 	const [priority, setPriority] = useState(props.data.priority);
+
+	// handlers
 	const handleChange = (event) => {
 		setTitle(event.target.value);
+		resizeTextarea();
 	};
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
@@ -15,14 +20,26 @@ function Task(props) {
 		}
 	};
 
+	// css class helpers
+	const priorityClass = (prefix) => {
+		const priority_map = ["low", "med", "high"];
+		return completed ? prefix : prefix + " " + prefix + "--" + priority_map[priority];
+	};
+	const resizeTextarea = () => {
+		const elem = document.getElementById("task-title-" + props.data.id);
+		const h = elem.scrollHeight;
+		elem.style.height = h + "px";
+	};
+
+	// API calls
 	const submitEdit = () => {
 		console.log("saved: ", title);
 		PostService.editTask({ id: props.data.id, title: title }).catch((err) => console.log(err));
 	};
 
-	const submitCompleted = (event) => {
-		setCompleted(event.target.checked);
-		PostService.editTask({ id: props.data.id, completed: event.target.checked }).catch((err) => console.log(err));
+	const submitCompleted = () => {
+		PostService.editTask({ id: props.data.id, completed: !completed }).catch((err) => console.log(err));
+		setCompleted((completed) => !completed);
 	};
 
 	const submitPriority = () => {
@@ -38,19 +55,29 @@ function Task(props) {
 			.catch((err) => console.log(err));
 	};
 
+	useEffect(() => {
+		resizeTextarea();
+	}, []);
+
 	return (
-		<div>
-			<input type="checkbox" checked={completed} onChange={submitCompleted}></input>
-			<button onClick={submitPriority}>{priority}</button>
-			<input
+		<div className="row task__row d-flex">
+			<button className={priorityClass("task__checkbox")} onClick={submitCompleted} disabled={completed}>
+				<i className="material-icons align-middle">{completed ? "check_circle" : "radio_button_unchecked"}</i>
+			</button>
+			<button className={priorityClass("task__priority")} onClick={submitPriority} disabled={completed}></button>
+			<textarea
+				rows="1"
+				className="task__title flex-grow-1"
+				id={"task-title-" + props.data.id}
 				type="text"
-				className="form-control-plaintext"
 				defaultValue={props.data.title}
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				onBlur={submitEdit}
-			></input>
-			<button onClick={submitDelete}>x</button>
+			></textarea>
+			<button className="task__delete" onClick={submitDelete}>
+				<i className="material-icons align-middle">clear</i>
+			</button>
 		</div>
 	);
 }

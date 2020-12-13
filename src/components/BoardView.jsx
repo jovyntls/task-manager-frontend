@@ -38,9 +38,12 @@ function BoardView() {
 
 	return (
 		<div>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 			<div>HELLO BOARD VIEW</div>
-			{showCards()}
-			<button onClick={newCard}>new category</button>
+			<div className="row p-3">
+				{showCards()}
+				<button onClick={newCard}>new category</button>
+			</div>
 		</div>
 	);
 }

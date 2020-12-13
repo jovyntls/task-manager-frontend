@@ -33,13 +33,7 @@ function NewTask(props) {
 		<div>
 			<input type="checkbox"></input>
 			<button onClick={editPriority}>{priority}</button>
-			<input
-				type="text"
-				className="form-control-plaintext"
-				value={title}
-				onChange={handleChange}
-				onKeyDown={handleKeyDown}
-			></input>
+			<input type="text" value={title} onChange={handleChange} onKeyDown={handleKeyDown}></input>
 		</div>
 	);
 }
