@@ -57,7 +57,7 @@ function Task(props) {
 
 	useEffect(() => {
 		resizeTextarea();
-	}, []);
+	});
 
 	return (
 		<div className="task__row d-flex">

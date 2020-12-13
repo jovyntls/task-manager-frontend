@@ -41,7 +41,7 @@ function NewTask(props) {
 			<button className="task__checkbox" disabled>
 				<i className="material-icons align-middle">create</i>
 			</button>
-			<button className={priorityClass("task__priority")} onClick={editPriority} disabled={title == ""}></button>
+			<button className={priorityClass("task__priority")} onClick={editPriority} disabled={title === ""}></button>
 			<input
 				className="task__title flex-grow-1"
 				type="text"

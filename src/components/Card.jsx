@@ -75,20 +75,17 @@ function Card(props) {
 						<i className="material-icons align-middle">more_horiz</i>
 					</button>
 					<div className="menu__items dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-						<a className="dropdown-item" href="#" onClick={deleteCard}>
+						<button className="dropdown-item" onClick={deleteCard}>
 							Delete this card
-						</a>
-						<a className="dropdown-item" href="#">
-							Edit tags
-						</a>
-						<a className="dropdown-item" href="#">
-							Clear completed
-						</a>
+						</button>
+						<button className="dropdown-item">Edit tags</button>
+						<button className="dropdown-item">Clear completed</button>
 					</div>
 				</div>
 			</div>
 
 			{showTasks(tasks)}
+
 			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
 		</div>
 	);

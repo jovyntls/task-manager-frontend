@@ -1,6 +1,6 @@
 import Api from "./Api";
 
-export default {
+const Services = {
 	// TASKS
 	fetchTasks() {
 		return Api().get("tasks");
@@ -32,3 +32,5 @@ export default {
 		return Api().put("cats/" + params.id, params)
 	}
 };
+
+export default Services

@@ -37,7 +37,7 @@ function BoardView() {
 			: "";
 	};
 	const newCard = () => {
-		PostService.addNewCard({ title: "test card" });
+		PostService.addNewCard({ title: "" });
 		refreshBoard();
 	};
 
