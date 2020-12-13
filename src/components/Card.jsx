@@ -3,6 +3,7 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import "./stylesheets/card.scss";
 
 function Card(props) {
 	const [refresh, setRefresh] = useState(false);
@@ -56,18 +57,21 @@ function Card(props) {
 	}, [refresh]);
 
 	return (
-		<div style={{ border: "1px solid steelblue" }} className="col-sm-6 col-md-4">
-			<input
-				type="text"
-				defaultValue={props.cat.title}
-				onChange={handleChange}
-				onKeyDown={handleKeyDown}
-				onBlur={submitEdit}
-			></input>
-			<button onClick={deleteCard}>x</button>
+		<div className="card col-sm-6 col-md-4">
+			<div className="row d-flex">
+				<input
+					className="card__title flex-grow-1"
+					type="text"
+					defaultValue={props.cat.title}
+					placeholder="New Title"
+					onChange={handleChange}
+					onKeyDown={handleKeyDown}
+					onBlur={submitEdit}
+				></input>
+				<button onClick={deleteCard}>x</button>
+			</div>
+
 			{showTasks(tasks)}
-			<br />
-			<sub>new task:</sub>
 			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
 		</div>
 	);

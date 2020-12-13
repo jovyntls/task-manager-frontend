@@ -2,7 +2,6 @@ import "../App.css";
 import React, { useEffect, useState } from "react";
 import PostService from "../services/PostService";
 import "./stylesheets/task.scss";
-import "./stylesheets/checkbox.css";
 
 function Task(props) {
 	const [title, setTitle] = useState(props.data.title);
@@ -17,6 +16,7 @@ function Task(props) {
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
 			submitEdit();
+			document.getElementById("task-title-" + props.data.id).blur();
 		}
 	};
 
