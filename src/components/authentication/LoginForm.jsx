@@ -17,13 +17,15 @@ function LoginForm(props) {
 			.post("http://localhost:3000/login", { username: username.value, password: password.value })
 			.then((response) => {
 				setLoading(false);
-				setUserSession(response.data.token, response.data.user.id);
-				localStorage.setItem("token", response.data.token);
-				props.history.push("/board");
+				if (response.data.error) setError(response.data.error);
+				else {
+					setUserSession(response.data.token, response.data.user.id);
+					props.history.push("/board");
+				}
 			})
 			.catch((error) => {
 				setLoading(false);
-				if (error.response.status === 401) setError(error.response.data.message);
+				if (error.response && error.response.status === 401) setError(error.response.data.message);
 				else setError("Something went wrong. Please try again later.");
 			});
 	};
@@ -33,6 +35,9 @@ function LoginForm(props) {
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 			<div className="card auth__container p-5">
 				<h1>Log In</h1>
+				<small>
+					Don't have an account? <a href="/signup">Sign up here</a>
+				</small>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">account_circle</i>
 					<input className="form-control" placeholder="Username" type="text" {...username} />
@@ -41,12 +46,7 @@ function LoginForm(props) {
 					<i className="material-icons mr-2">lock</i>
 					<input className="form-control" placeholder="Password" type="password" {...password} />
 				</div>
-				{error && (
-					<>
-						<small style={{ color: "red" }}>{error}</small>
-						<br />
-					</>
-				)}
+				{error && <small style={{ color: "red" }}>{error}</small>}
 				<br />
 				<input
 					className="auth__submit"
@@ -55,7 +55,6 @@ function LoginForm(props) {
 					onClick={handleLogin}
 					disabled={loading}
 				/>
-				<br />
 			</div>
 		</div>
 	);

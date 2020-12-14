@@ -18,7 +18,6 @@ function LoginForm(props) {
 			.then((response) => {
 				setLoading(false);
 				setUserSession(response.data.token, response.data.user.id);
-				localStorage.setItem("token", response.data.token);
 				props.history.push("/board");
 			})
 			.catch((error) => {
