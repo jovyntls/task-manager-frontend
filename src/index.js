@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import App from "./App";
 import BoardView from "./components/BoardView";
 import LoginForm from "./components/authentication/LoginForm";
+import SignupForm from "./components/authentication/SignupForm";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +19,7 @@ ReactDOM.render(
 			<Switch>
 				<Route exact path="/App" component={App} />
 				<PublicRoute exact path="/login" component={LoginForm} />
+				<PublicRoute exact path="/signup" component={SignupForm} />
 				<PrivateRoute exact path="/board" component={BoardView} />
 				<App />
 			</Switch>
