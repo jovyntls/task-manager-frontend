@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { setUserSession } from "../../Utils/Common";
+import "../stylesheets/authentication.scss";
 
 function LoginForm(props) {
 	const [loading, setLoading] = useState(false);
@@ -17,7 +18,6 @@ function LoginForm(props) {
 			.then((response) => {
 				setLoading(false);
 				setUserSession(response.data.token, response.data.user.id);
-				// axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
 				localStorage.setItem("token", response.data.token);
 				props.history.push("/board");
 			})
@@ -29,27 +29,34 @@ function LoginForm(props) {
 	};
 
 	return (
-		<div>
-			Login
-			<br />
-			<br />
-			<div>
-				Username
-				<input type="text" {...username} />
+		<div className="container auth__wrapper">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+			<div className="card auth__container p-5">
+				<h1>Log In</h1>
+				<div className="d-flex align-items-center mt-2">
+					<i className="material-icons mr-2">account_circle</i>
+					<input className="form-control" placeholder="Username" type="text" {...username} />
+				</div>
+				<div className="d-flex align-items-center mt-2">
+					<i className="material-icons mr-2">lock</i>
+					<input className="form-control" placeholder="Password" type="password" {...password} />
+				</div>
+				{error && (
+					<>
+						<small style={{ color: "red" }}>{error}</small>
+						<br />
+					</>
+				)}
+				<br />
+				<input
+					className="auth__submit"
+					type="button"
+					value={loading ? "Loading..." : "Log In"}
+					onClick={handleLogin}
+					disabled={loading}
+				/>
+				<br />
 			</div>
-			<div style={{ marginTop: 10 }}>
-				Password
-				<input type="password" {...password} />
-			</div>
-			{error && (
-				<>
-					<small style={{ color: "red" }}>{error}</small>
-					<br />
-				</>
-			)}
-			<br />
-			<input type="button" value={loading ? "Loading..." : "Login"} onClick={handleLogin} disabled={loading} />
-			<br />
 		</div>
 	);
 }
