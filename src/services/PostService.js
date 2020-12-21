@@ -30,7 +30,15 @@ const Services = {
 	},
 	editCard(params) {
 		return Api().put("cats/" + params.id, params)
-	}
+	},
+
+	// TAGS
+	fetchTags() {
+		return Api().get("tags")
+	},
+	fetchTagsFromCat(params) {
+		return Api().get("items_tags/by_cat/" + params.cat_id)
+	},
 };
 
 export default Services

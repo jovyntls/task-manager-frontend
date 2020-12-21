@@ -10,15 +10,30 @@ function Card(props) {
 	const [refresh, setRefresh] = useState(false);
 	const [tasks, setTasks] = useState([]);
 	const [title, setTitle] = useState(props.cat.title);
+	const [tags, setTags] = useState([]);
 
 	const isValidArray = (data) => {
 		return !Array.isArray(data) || !data.length;
 	};
 
+	// API calls for tags
+	const getTags = () => {
+		PostService.fetchTagsFromCat({cat_id: props.cat.id})
+		.then((response) => {
+			setTags(response.data);
+		})
+		.catch((err) => console.log(err));
+	}
+	const showTags = () => {
+		console.log(props.tags)
+		return tags.map((item, i) => <div>{props.tags[item.tag_id]}</div>)
+	}
+
 	// API calls for editing tasks
 	const getTasks = () => {
 		PostService.fetchTasksFromCat(props.cat.id)
 			.then((res) => {
+				getTags();
 				setTasks(res.data);
 				props.refreshLayout();
 			})
@@ -83,6 +98,7 @@ function Card(props) {
 					</div>
 				</div>
 			</div>
+			{showTags()}
 
 			{showTasks(tasks)}
 

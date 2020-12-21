@@ -6,6 +6,8 @@ import StackGrid from "react-stack-grid";
 
 function BoardView() {
 	const [cats, setCats] = useState([]);
+	const [tags, setTags] = useState({});
+	const [tag_relations, setTagRelations] = useState([]);
 	const [board_refresh, setBoardRefresh] = useState(false);
 	const [waterfall, setWaterfall] = useState([]);
 	const [layout_refresh, setLayoutRefresh] = useState(0);
@@ -22,6 +24,17 @@ function BoardView() {
 		waterfall[0].updateLayout();
 	};
 
+	// API calls for tags
+	const fetchTags = () => {
+		PostService.fetchTags() 
+			.then((response) => {
+				const tags = {};
+				response.data.forEach((item) => tags[item.id] = item.title);
+				setTags(tags);
+				console.log(tags);
+			})
+			.catch((err) => console.log(err));
+	}
 	// API calls for editing categories
 	const fetchCards = () => {
 		PostService.fetchCats()
@@ -33,7 +46,7 @@ function BoardView() {
 	};
 	const showCards = () => {
 		return isValidArray(cats)
-			? cats.map((cat) => <Card key={cat.id} cat={cat} refresher={refreshBoard} refreshLayout={refreshLayout} />)
+			? cats.map((cat) => <Card key={cat.id} cat={cat} tags={tags} refresher={refreshBoard} refreshLayout={refreshLayout} />)
 			: "";
 	};
 	const newCard = () => {
@@ -42,6 +55,7 @@ function BoardView() {
 	};
 
 	useEffect(() => {
+		fetchTags();
 		fetchCards();
 	}, [board_refresh]);
 
@@ -62,6 +76,7 @@ function BoardView() {
 					<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
 				</button>
 			</StackGrid>
+			{JSON.stringify(tags)}
 		</div>
 	);
 }
