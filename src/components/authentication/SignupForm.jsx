@@ -17,8 +17,12 @@ function LoginForm(props) {
 			.post("http://localhost:3000/signup", { username: username.value, password: password.value })
 			.then((response) => {
 				setLoading(false);
-				setUserSession(response.data.token, response.data.user.id);
-				props.history.push("/board");
+				if (response.data.error) setError(response.data.error);
+				else {
+					setUserSession(response.data.token, response.data.user.id);
+					localStorage.setItem("token", response.data.token);
+					props.history.push("/board");
+				}
 			})
 			.catch((error) => {
 				setLoading(false);
@@ -32,6 +36,9 @@ function LoginForm(props) {
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 			<div className="card auth__container p-5">
 				<h1>Sign up</h1>
+				<small>
+					Already have an account? <a href="/login">Log in here</a>
+				</small>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">account_circle</i>
 					<input className="form-control" placeholder="Username" type="text" {...username} />
@@ -43,7 +50,6 @@ function LoginForm(props) {
 				{error && (
 					<>
 						<small style={{ color: "red" }}>{error}</small>
-						<br />
 					</>
 				)}
 				<br />
