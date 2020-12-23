@@ -1,0 +1,17 @@
+@import "./variables";
+
+.tag__delete {
+	color: $error;
+}
+.tag__edit {
+	color: $action;
+}
+.tag__icon-button {
+	padding: 0;
+	background-color: transparent;
+	border: 0;
+	line-height: 0;
+}
+.tag__icon {
+	font-size: 1.1em !important;
+}

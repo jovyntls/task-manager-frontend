@@ -1,4 +1,5 @@
 import "../App.css";
+import "./stylesheets/taglist.scss";
 import PostService from "../services/PostService";
 import React, { useEffect, useState } from "react";
 
@@ -33,12 +34,19 @@ function EditTag(props) {
 	}, [props.cat]);
 
 	return (
-		<div className="form-check">
-			<input type="checkbox" class="form-check-input" id={props.id} checked={checked} onClick={changeTags} />
-			<label class="form-check-label" htmlFor={props.id}>
-				{props.title}
-			</label>
-			<button onClick={submitDeleteTag}>delete</button>
+		<div className="d-flex">
+			<button className="tag__delete tag__icon-button" onClick={submitDeleteTag}>
+				<i className="material-icons tag__icon align-middle">clear</i>
+			</button>
+			{/* <button className="tag__edit tag__icon-button" onClick={submitEditTag}>
+				<i className="material-icons tag__icon align-middle">edit</i>
+			</button> */}
+			<span className="form-check ml-1">
+				<input type="checkbox" class="form-check-input" id={props.id} checked={checked} onClick={changeTags} />
+				<label class="form-check-label" htmlFor={props.id}>
+					{props.title}
+				</label>
+			</span>
 		</div>
 	);
 }

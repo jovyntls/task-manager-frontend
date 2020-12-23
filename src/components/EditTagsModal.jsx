@@ -36,9 +36,9 @@ function EditTagsModal(props) {
 	return (
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">
-					Edit tags for: <strong>{props.cat.title}</strong>
-				</h5>
+				<h4 class="modal-title" id="exampleModalLabel">
+					{props.cat.title}
+				</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
