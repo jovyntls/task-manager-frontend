@@ -5,3 +5,14 @@ button:disabled {
 input::placeholder {
 	opacity: 0.6;
 }
+
+.wrapper {
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.content {
+	width: 100%;
+	padding: 10px 20px;
+}
