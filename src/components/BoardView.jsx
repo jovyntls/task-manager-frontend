@@ -24,6 +24,9 @@ function BoardView() {
 	const refreshLayout = () => {
 		waterfall[0].updateLayout();
 	};
+	const refreshTags = () => {
+		fetchTags();
+	};
 
 	// API calls for tags
 	const fetchTags = () => {
@@ -32,6 +35,7 @@ function BoardView() {
 				const tags = {};
 				response.data.forEach((item) => (tags[item.id] = item.title));
 				setTags(tags);
+				console.log(tags);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -98,7 +102,7 @@ function BoardView() {
 				aria-hidden="true"
 			>
 				<div class="modal-dialog" role="document">
-					<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} />
+					<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} />
 				</div>
 			</div>
 		</div>

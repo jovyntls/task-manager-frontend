@@ -19,6 +19,15 @@ function EditTag(props) {
 		}
 	};
 
+	const submitDeleteTag = () => {
+		PostService.deleteTag(props.id)
+			.then((response) => {
+				props.refresher();
+				return response;
+			})
+			.catch((err) => console.log(err));
+	};
+
 	useEffect(() => {
 		setChecked(isTagged());
 	}, [props.cat]);
@@ -29,6 +38,7 @@ function EditTag(props) {
 			<label class="form-check-label" htmlFor={props.id}>
 				{props.title}
 			</label>
+			<button onClick={submitDeleteTag}>delete</button>
 		</div>
 	);
 }

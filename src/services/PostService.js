@@ -36,11 +36,17 @@ const Services = {
 	fetchTags() {
 		return Api().get("tags");
 	},
-	fetchTagsFromCat(params) {
-		return Api().get("items_tags/by_cat/" + params.cat_id);
+	addNewTag(params) {
+		return Api().post("tags", params);
+	},
+	deleteTag(id) {
+		return Api().delete("tags/" + id);
 	},
 
 	// ITEM_TAGS
+	fetchTagsFromCat(params) {
+		return Api().get("items_tags/by_cat/" + params.cat_id);
+	},
 	deleteItemTag(params) {
 		return Api().delete("items_tags/" + params.tag_id + "/" + params.cat_id);
 	},

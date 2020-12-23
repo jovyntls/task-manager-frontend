@@ -19,7 +19,6 @@ function NewTask(props) {
 		}
 	};
 	const submitEdit = () => {
-		console.log("saved: ", title);
 		PostService.addNewTask({ cat_id: props.cat_id, title: title, priority: priority })
 			.then((response) => {
 				return response;
