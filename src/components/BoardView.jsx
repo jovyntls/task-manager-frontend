@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
 import EditTagsModal from "./EditTagsModal";
-import SideBar from "./layout/SideBar";
 import sizeMe, { SizeMe } from "react-sizeme";
 
 function BoardView() {
@@ -81,34 +80,30 @@ function BoardView() {
 	return (
 		<SizeMe>
 			{({ size }) => (
-				<div className="wrapper">
-					<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-					<SideBar />
-					<div className="content">
-						<StackGrid
-							gridRef={(grid) => {
-								setWaterfall([grid]);
-							}}
-							columnWidth={size.width <= 1100 ? (size.width <= 750 ? "100%" : "50%") : "33.33%"}
-							gutterWidth={10}
-							gutterHeight={10}
-						>
-							{showCards()}
-							<button className="new-card" onClick={newCard}>
-								<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
-							</button>
-						</StackGrid>
-						<div
-							class="modal fade edit-tags-modal"
-							id="edit-tags-modal"
-							tabindex="-1"
-							role="dialog"
-							aria-labelledby="exampleModalLabel"
-							aria-hidden="true"
-						>
-							<div class="modal-dialog" role="document">
-								<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} />
-							</div>
+				<div className="content">
+					<StackGrid
+						gridRef={(grid) => {
+							setWaterfall([grid]);
+						}}
+						columnWidth={size.width <= 930 ? (size.width <= 620 ? "100%" : "50%") : "33.33%"}
+						gutterWidth={10}
+						gutterHeight={10}
+					>
+						{showCards()}
+						<button className="new-card" onClick={newCard}>
+							<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+						</button>
+					</StackGrid>
+					<div
+						class="modal fade edit-tags-modal"
+						id="edit-tags-modal"
+						tabindex="-1"
+						role="dialog"
+						aria-labelledby="exampleModalLabel"
+						aria-hidden="true"
+					>
+						<div class="modal-dialog" role="document">
+							<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} />
 						</div>
 					</div>
 				</div>

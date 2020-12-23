@@ -1,4 +1,6 @@
 import "./App.css";
+import SideBar from "./components/layout/SideBar";
+import BoardView from "./components/BoardView";
 import { removeUserSession } from "./Utils/Common";
 
 function App(props) {
@@ -8,12 +10,11 @@ function App(props) {
 
 	return (
 		<div className="App">
-			<div style={{ "background-color": "powderblue" }}>
-				<button onClick={logout()}>sign out</button>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+			<div className="wrapper">
+				<SideBar />
+				<BoardView />
 			</div>
-			<header className="App-header">
-				<p>Hello {subject}!</p>
-			</header>
 		</div>
 	);
 }
