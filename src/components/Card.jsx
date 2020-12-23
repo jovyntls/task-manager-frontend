@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./stylesheets/card.scss";
 
 function Card(props) {
-	const [refresh, setRefresh] = useState(false);
+	const [refresh, setRefresh] = useState(props.refreshTags);
 	const [tasks, setTasks] = useState([]);
 	const [title, setTitle] = useState(props.cat.title);
 	const [tags, setTags] = useState([]);
@@ -19,6 +19,7 @@ function Card(props) {
 
 	// API calls for tags
 	const getTags = () => {
+		console.log(tags);
 		PostService.fetchTagsFromCat({ cat_id: props.cat.id })
 			.then((response) => {
 				setTags(response.data);
@@ -47,7 +48,7 @@ function Card(props) {
 		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} refresher={refreshTasks} />);
 	};
 	const refreshTasks = () => {
-		setRefresh(!refresh);
+		setRefresh((refresh) => refresh + 1);
 		getTasks();
 	};
 
@@ -73,7 +74,7 @@ function Card(props) {
 	useEffect(() => {
 		getTags();
 		getTasks();
-	}, [refresh]);
+	}, [props.refreshTags, refresh]);
 
 	return (
 		<div className="card my-card p-3">

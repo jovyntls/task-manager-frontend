@@ -23,11 +23,8 @@ function EditTagsModal(props) {
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={props.refresher}>
 					Close
-				</button>
-				<button type="button" class="btn btn-primary">
-					Save changes
 				</button>
 			</div>
 		</div>

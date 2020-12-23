@@ -9,8 +9,7 @@ function BoardView() {
 	const [cats, setCats] = useState([]);
 	const [tags, setTags] = useState({});
 	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({}); // change to the whole cat
-	const [tag_relations, setTagRelations] = useState([]);
-	const [board_refresh, setBoardRefresh] = useState(false);
+	const [board_refresh, setBoardRefresh] = useState(0);
 	const [waterfall, setWaterfall] = useState([]);
 	const [layout_refresh, setLayoutRefresh] = useState(0);
 
@@ -19,7 +18,7 @@ function BoardView() {
 	};
 
 	const refreshBoard = () => {
-		setBoardRefresh(!board_refresh);
+		setBoardRefresh((board_refresh) => board_refresh + 1);
 		fetchCards();
 	};
 	const refreshLayout = () => {
@@ -51,7 +50,15 @@ function BoardView() {
 	const showCards = () => {
 		return isValidArray(cats)
 			? cats.map((cat) => (
-					<Card key={cat.id} cat={cat} tags={tags} editTags={editTags} refresher={refreshBoard} refreshLayout={refreshLayout} />
+					<Card
+						key={cat.id}
+						cat={cat}
+						tags={tags}
+						editTags={editTags}
+						refresher={refreshBoard}
+						refreshLayout={refreshLayout}
+						refreshTags={board_refresh}
+					/>
 			  ))
 			: "";
 	};
@@ -91,7 +98,7 @@ function BoardView() {
 				aria-hidden="true"
 			>
 				<div class="modal-dialog" role="document">
-					<EditTagsModal cat={edit_tags_active_cat} tags={tags} />
+					<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} />
 				</div>
 			</div>
 		</div>
