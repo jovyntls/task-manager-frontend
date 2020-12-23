@@ -3,6 +3,7 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stylesheets/card.scss";
 
@@ -18,22 +19,23 @@ function Card(props) {
 
 	// API calls for tags
 	const getTags = () => {
-		PostService.fetchTagsFromCat({cat_id: props.cat.id})
-		.then((response) => {
-			setTags(response.data);
-		})
-		.catch((err) => console.log(err));
-	}
+		PostService.fetchTagsFromCat({ cat_id: props.cat.id })
+			.then((response) => {
+				setTags(response.data);
+			})
+			.catch((err) => console.log(err));
+	};
 	const showTags = () => {
-		console.log(props.tags)
-		return tags.map((item, i) => <div>{props.tags[item.tag_id]}</div>)
-	}
+		return tags.map((item, i) => <Tag title={props.tags[item.tag_id]} key={item.tag_id} />);
+	};
+	const submitEditTags = () => {
+		props.editTags({ ...props.cat, tags: tags });
+	};
 
 	// API calls for editing tasks
 	const getTasks = () => {
 		PostService.fetchTasksFromCat(props.cat.id)
 			.then((res) => {
-				getTags();
 				setTasks(res.data);
 				props.refreshLayout();
 			})
@@ -60,7 +62,6 @@ function Card(props) {
 	};
 	// API calls
 	const submitEdit = () => {
-		console.log("saved: ", title);
 		PostService.editCard({ id: props.cat.id, title: title }).catch((err) => console.log(err));
 	};
 	const deleteCard = () => {
@@ -70,6 +71,7 @@ function Card(props) {
 	};
 
 	useEffect(() => {
+		getTags();
 		getTasks();
 	}, [refresh]);
 
@@ -93,13 +95,14 @@ function Card(props) {
 						<button className="dropdown-item" onClick={deleteCard}>
 							Delete this card
 						</button>
-						<button className="dropdown-item">Edit tags</button>
+						<button className="dropdown-item" data-toggle="modal" data-target="#edit-tags-modal" onClick={submitEditTags}>
+							Edit tags
+						</button>
 						<button className="dropdown-item">Clear completed</button>
 					</div>
 				</div>
 			</div>
-			{showTags()}
-
+			<div className="mb-2">{showTags()}</div>
 			{showTasks(tasks)}
 
 			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />

@@ -23,22 +23,30 @@ const Services = {
 		return Api().get("cats");
 	},
 	addNewCard(params) {
-		return Api().post("cats", params)
+		return Api().post("cats", params);
 	},
 	deleteCard(id) {
 		return Api().delete("cats/" + id);
 	},
 	editCard(params) {
-		return Api().put("cats/" + params.id, params)
+		return Api().put("cats/" + params.id, params);
 	},
 
 	// TAGS
 	fetchTags() {
-		return Api().get("tags")
+		return Api().get("tags");
 	},
 	fetchTagsFromCat(params) {
-		return Api().get("items_tags/by_cat/" + params.cat_id)
+		return Api().get("items_tags/by_cat/" + params.cat_id);
+	},
+
+	// ITEM_TAGS
+	deleteItemTag(params) {
+		return Api().delete("items_tags/" + params.tag_id + "/" + params.cat_id);
+	},
+	addItemTag(params) {
+		return Api().post("items_tags/", params);
 	},
 };
 
-export default Services
+export default Services;

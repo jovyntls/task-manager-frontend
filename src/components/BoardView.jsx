@@ -3,10 +3,12 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
+import EditTagsModal from "./EditTagsModal";
 
 function BoardView() {
 	const [cats, setCats] = useState([]);
 	const [tags, setTags] = useState({});
+	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({}); // change to the whole cat
 	const [tag_relations, setTagRelations] = useState([]);
 	const [board_refresh, setBoardRefresh] = useState(false);
 	const [waterfall, setWaterfall] = useState([]);
@@ -26,15 +28,17 @@ function BoardView() {
 
 	// API calls for tags
 	const fetchTags = () => {
-		PostService.fetchTags() 
+		PostService.fetchTags()
 			.then((response) => {
 				const tags = {};
-				response.data.forEach((item) => tags[item.id] = item.title);
+				response.data.forEach((item) => (tags[item.id] = item.title));
 				setTags(tags);
-				console.log(tags);
 			})
 			.catch((err) => console.log(err));
-	}
+	};
+	const editTags = (cat) => {
+		setEditTagsActiveCat(cat);
+	};
 	// API calls for editing categories
 	const fetchCards = () => {
 		PostService.fetchCats()
@@ -46,7 +50,9 @@ function BoardView() {
 	};
 	const showCards = () => {
 		return isValidArray(cats)
-			? cats.map((cat) => <Card key={cat.id} cat={cat} tags={tags} refresher={refreshBoard} refreshLayout={refreshLayout} />)
+			? cats.map((cat) => (
+					<Card key={cat.id} cat={cat} tags={tags} editTags={editTags} refresher={refreshBoard} refreshLayout={refreshLayout} />
+			  ))
 			: "";
 	};
 	const newCard = () => {
@@ -76,7 +82,18 @@ function BoardView() {
 					<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
 				</button>
 			</StackGrid>
-			{JSON.stringify(tags)}
+			<div
+				class="modal fade edit-tags-modal"
+				id="edit-tags-modal"
+				tabindex="-1"
+				role="dialog"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog" role="document">
+					<EditTagsModal cat={edit_tags_active_cat} tags={tags} />
+				</div>
+			</div>
 		</div>
 	);
 }
