@@ -16,10 +16,11 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Switch>
-				<PrivateRoute exact path="/App" component={App} />
+				<PrivateRoute exact path="/" component={App} />
 				<PublicRoute exact path="/login" component={LoginForm} />
 				<PublicRoute exact path="/signup" component={SignupForm} />
 			</Switch>
+			Hello
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")
