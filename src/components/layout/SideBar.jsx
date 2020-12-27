@@ -1,11 +1,15 @@
 import "../../App.css";
 import "../stylesheets/sidebar.scss";
 import { removeUserSession } from "../../Utils/Common";
+import { useHistory } from "react-router-dom";
 
 function SideBar() {
+	const history = useHistory();
 	const logout = () => {
 		removeUserSession();
+		history.push("/login");
 	};
+
 	return (
 		<nav id="sidebar" className="m-0">
 			<button onClick={logout} href="/login">

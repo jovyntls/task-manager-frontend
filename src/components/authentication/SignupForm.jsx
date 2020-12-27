@@ -21,7 +21,7 @@ function LoginForm(props) {
 				else {
 					setUserSession(response.data.token, response.data.user.id);
 					localStorage.setItem("token", response.data.token);
-					props.history.push("/board");
+					props.history.push("/App");
 				}
 			})
 			.catch((error) => {
