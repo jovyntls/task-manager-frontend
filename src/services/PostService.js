@@ -1,6 +1,14 @@
 import Api from "./Api";
 
 const Services = {
+	// AUTHENTICATION
+	login(params) {
+		return Api().post("login", params);
+	},
+	signup(params) {
+		return Api().post("signup", params);
+	},
+
 	// TASKS
 	fetchTasks() {
 		return Api().get("tasks");

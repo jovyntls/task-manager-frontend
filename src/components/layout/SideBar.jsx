@@ -19,7 +19,8 @@ function SideBar() {
 				<h3>Welcome</h3>
 			</div>
 			<hr />
-			<h5>Sort by:</h5>
+			TODO: create this sidebar
+			{/* <h5>Sort by:</h5>
 			<ul>
 				<li>created time</li>
 				<li>priority</li>
@@ -33,7 +34,7 @@ function SideBar() {
 			<span className="form-check ml-1">
 				<input type="checkbox" class="form-check-input" />
 				<label class="form-check-label">something</label>
-			</span>
+			</span> */}
 		</nav>
 	);
 }

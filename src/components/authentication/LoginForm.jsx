@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { setUserSession } from "../../Utils/Common";
 import "../stylesheets/authentication.scss";
+import PostService from "../../services/PostService";
 
 function LoginForm(props) {
 	const [loading, setLoading] = useState(false);
@@ -13,8 +13,7 @@ function LoginForm(props) {
 	const handleLogin = () => {
 		setError(null);
 		setLoading(true);
-		axios
-			.post("http://localhost:3000/login", { username: username.value, password: password.value })
+		PostService.login({ username: username.value, password: password.value })
 			.then((response) => {
 				setLoading(false);
 				if (response.data.error) setError(response.data.error);
