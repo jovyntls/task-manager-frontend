@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const Api = () => {
+	const api_url = process.env.NODE_ENV == "production" ? "https://secret-temple-43663.herokuapp.com/" : "http://localhost:3000/";
 	const instance = axios.create({
-		// baseURL: "http://localhost:3000/",
-		baseURL: "https://secret-temple-43663.herokuapp.com/", // for production
+		baseURL: api_url,
 	});
 
 	instance.interceptors.request.use(
