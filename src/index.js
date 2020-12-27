@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import App from "./App";
 import LoginForm from "./components/authentication/LoginForm";
 import SignupForm from "./components/authentication/SignupForm";
@@ -13,16 +13,15 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<Switch>
-				<PrivateRoute exact path="/" component={App} />
-				<PublicRoute exact path="/login" component={LoginForm} />
-				<PublicRoute exact path="/signup" component={SignupForm} />
-			</Switch>
-			Hello
-		</BrowserRouter>
-	</React.StrictMode>,
+	// <React.StrictMode>
+	<BrowserRouter>
+		<Switch>
+			<PrivateRoute exact path="/" component={App} />
+			<PublicRoute exact path="/login" component={LoginForm} />
+			<PublicRoute exact path="/signup" component={SignupForm} />
+		</Switch>
+	</BrowserRouter>,
+	// </React.StrictMode>,
 	document.getElementById("root")
 );
 

@@ -20,7 +20,7 @@ function LoginForm(props) {
 				else {
 					setUserSession(response.data.token, response.data.user.id);
 					localStorage.setItem("token", response.data.token);
-					props.history.push("/App");
+					props.history.push("/");
 				}
 			})
 			.catch((error) => {

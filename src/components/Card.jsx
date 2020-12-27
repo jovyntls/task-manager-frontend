@@ -19,10 +19,10 @@ function Card(props) {
 
 	// API calls for tags
 	const getTags = () => {
-		console.log(tags);
 		PostService.fetchTagsFromCat({ cat_id: props.cat.id })
 			.then((response) => {
 				setTags(response.data);
+				props.refreshLayout();
 			})
 			.catch((err) => console.log(err));
 	};

@@ -34,16 +34,16 @@ function EditTagsModal(props) {
 	}, [props.tags]);
 
 	return (
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">
+		<div className="modal-content">
+			<div className="modal-header">
+				<h4 className="modal-title" id="exampleModalLabel">
 					{props.cat.title}
 				</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
+			<div className="modal-body">
 				{Object.keys(tags).map((item, i) => (
 					<EditTag all_tags={tags} cat={props.cat} title={tags[item]} id={item} key={i} refresher={props.refreshTags} />
 				))}
@@ -57,8 +57,8 @@ function EditTagsModal(props) {
 					onKeyDown={handleKeyDown}
 				></input>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={props.refresher}>
+			<div className="modal-footer">
+				<button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.refresher}>
 					Close
 				</button>
 			</div>

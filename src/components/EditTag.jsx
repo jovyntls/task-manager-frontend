@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 function EditTag(props) {
 	const isTagged = () => {
-		return props.cat.tags && props.cat.tags.filter((tag) => tag.tag_id === parseInt(props.id)).length > 0;
+		return Boolean(props.cat.tags) && props.cat.tags.filter((tag) => tag.tag_id === parseInt(props.id)).length > 0;
 	};
 
 	const [checked, setChecked] = useState(isTagged());
@@ -42,8 +42,8 @@ function EditTag(props) {
 				<i className="material-icons tag__icon align-middle">edit</i>
 			</button> */}
 			<span className="form-check ml-1">
-				<input type="checkbox" class="form-check-input" id={props.id} checked={checked} onClick={changeTags} />
-				<label class="form-check-label" htmlFor={props.id}>
+				<input type="checkbox" className="form-check-input" id={props.id} checked={checked} onChange={changeTags} />
+				<label className="form-check-label" htmlFor={props.id}>
 					{props.title}
 				</label>
 			</span>

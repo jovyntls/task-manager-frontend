@@ -33,7 +33,6 @@ function Task(props) {
 
 	// API calls
 	const submitEdit = () => {
-		console.log("saved: ", title);
 		PostService.editTask({ id: props.data.id, title: title }).catch((err) => console.log(err));
 	};
 

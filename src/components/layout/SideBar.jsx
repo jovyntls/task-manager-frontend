@@ -28,12 +28,12 @@ function SideBar() {
 			<hr />
 			<h5>Show tags:</h5>
 			<span className="form-check ml-1">
-				<input type="checkbox" class="form-check-input" />
-				<label class="form-check-label">Select all</label>
+				<input type="checkbox" className="form-check-input" />
+				<label className="form-check-label">Select all</label>
 			</span>
 			<span className="form-check ml-1">
-				<input type="checkbox" class="form-check-input" />
-				<label class="form-check-label">something</label>
+				<input type="checkbox" className="form-check-input" />
+				<label className="form-check-label">something</label>
 			</span> */}
 		</nav>
 	);

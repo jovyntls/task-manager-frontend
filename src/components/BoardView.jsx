@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
 import EditTagsModal from "./EditTagsModal";
-import sizeMe, { SizeMe } from "react-sizeme";
+import { SizeMe } from "react-sizeme";
 
 function BoardView() {
 	const [cats, setCats] = useState([]);
@@ -36,7 +36,6 @@ function BoardView() {
 				const tags = {};
 				response.data.forEach((item) => (tags[item.id] = item.title));
 				setTags(tags);
-				console.log(tags);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -95,14 +94,14 @@ function BoardView() {
 						</button>
 					</StackGrid>
 					<div
-						class="modal fade edit-tags-modal"
+						className="modal fade edit-tags-modal"
 						id="edit-tags-modal"
-						tabindex="-1"
+						tabIndex="-1"
 						role="dialog"
 						aria-labelledby="exampleModalLabel"
 						aria-hidden="true"
 					>
-						<div class="modal-dialog" role="document">
+						<div className="modal-dialog" role="document">
 							<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} />
 						</div>
 					</div>
