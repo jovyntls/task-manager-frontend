@@ -10,20 +10,31 @@ import PublicRoute from "./Utils/PublicRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import { store } from "./components/configure-store";
+import { Container } from "./components/tags/container";
 
-ReactDOM.render(
-	// <React.StrictMode>
-	<BrowserRouter>
-		<Switch>
-			<PrivateRoute exact path="/" component={App} />
-			<PublicRoute exact path="/login" component={LoginForm} />
-			<PublicRoute exact path="/signup" component={SignupForm} />
-		</Switch>
-	</BrowserRouter>,
-	// </React.StrictMode>,
-	document.getElementById("root")
-);
+import { fetchTags } from "./components/tags-modal/tags-modal-reducer";
+store.dispatch(fetchTags);
+
+const Wrapper = () => {
+	return (
+		<Provider store={store}>
+			{/* <React.StrictMode> */}
+			<BrowserRouter>
+				<Container />
+				<Switch>
+					<PrivateRoute exact path="/" component={App} />
+					<PublicRoute exact path="/login" component={LoginForm} />
+					<PublicRoute exact path="/signup" component={SignupForm} />
+				</Switch>
+			</BrowserRouter>
+			{/* </React.StrictMode> */}
+		</Provider>
+	);
+};
+
+ReactDOM.render(<Wrapper />, document.getElementById("root"));
 
 // // If you want to start measuring performance in your app, pass a function
 // // to log results (for example: reportWebVitals(console.log))
