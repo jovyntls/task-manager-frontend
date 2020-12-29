@@ -3,7 +3,7 @@ import PostService from "../services/PostService";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
-import EditTagsModal from "./EditTagsModal";
+import { TagsModalContainer } from "./tags-modal/tags-modal-container";
 import { SizeMe } from "react-sizeme";
 
 function BoardView() {
@@ -102,7 +102,8 @@ function BoardView() {
 						aria-hidden="true"
 					>
 						<div className="modal-dialog" role="document">
-							<EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} />
+							{/* <EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} /> */}
+							<TagsModalContainer />
 						</div>
 					</div>
 				</div>
