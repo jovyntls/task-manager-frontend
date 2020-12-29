@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import EditTagsModal from "./EditTagsModal";
+import TagsModal from "./tags-modal-component";
 
 const mapStateToProps = (state) => {
 	return {
@@ -12,4 +12,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export const TagsModalContainer = connect(mapStateToProps, mapDispatchToProps)(EditTagsModal);
+export const TagsModalContainer = connect(mapStateToProps, mapDispatchToProps)(TagsModal);

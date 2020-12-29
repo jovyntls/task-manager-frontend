@@ -1,13 +1,12 @@
 import "../../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../stylesheets/card.scss";
-import EditTag from "../EditTag";
-import PostService from "../../services/PostService";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewTag } from "./tags-modal-reducer";
+import EditTag from "./edit-tag/edit-tag-component";
 
-function EditTagsModal({ tags, fetchTags }) {
+function TagsModal({ tags, fetchTags, cat }) {
 	const dispatch = useDispatch();
 	const [newTag, setNewTag] = useState("");
 
@@ -34,18 +33,17 @@ function EditTagsModal({ tags, fetchTags }) {
 		<div className="modal-content">
 			<div className="modal-header">
 				<h4 className="modal-title" id="exampleModalLabel">
-					{/* {props.cat.title} */}
-					placeholder
+					{cat.title}
 				</h4>
 				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div className="modal-body">
-				{/* {Object.keys(tags).map((item, i) => (
-					<EditTag all_tags={tags} cat={props.cat} title={tags[item]} id={item} key={i} refresher={props.refreshTags} />
-				))} */}
-				{JSON.stringify(tags)}
+				{/* {JSON.stringify(tags)} */}
+				{Object.keys(tags).map((item, i) => (
+					<EditTag cat={cat} title={tags[item]} id={item} key={i} />
+				))}
 				<em>Create a new tag:</em>
 				<input
 					className="flex-grow-1 ml-1"
@@ -66,4 +64,4 @@ function EditTagsModal({ tags, fetchTags }) {
 	);
 }
 
-export default EditTagsModal;
+export default TagsModal;

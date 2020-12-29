@@ -102,8 +102,7 @@ function BoardView() {
 						aria-hidden="true"
 					>
 						<div className="modal-dialog" role="document">
-							{/* <EditTagsModal cat={edit_tags_active_cat} tags={tags} refresher={refreshBoard} refreshTags={refreshTags} /> */}
-							<TagsModalContainer />
+							<TagsModalContainer cat={edit_tags_active_cat} />
 						</div>
 					</div>
 				</div>
