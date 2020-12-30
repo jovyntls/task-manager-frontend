@@ -1,6 +1,7 @@
 import "./App.css";
 import SideBar from "./components/layout/SideBar";
-import BoardView from "./components/BoardView";
+// import BoardView from "./components/BoardView";
+import { BoardContainer } from "./components/board/board-container";
 
 function App(props) {
 	return (
@@ -8,7 +9,7 @@ function App(props) {
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 			<div className="wrapper">
 				<SideBar />
-				<BoardView />
+				<BoardContainer />
 			</div>
 		</div>
 	);

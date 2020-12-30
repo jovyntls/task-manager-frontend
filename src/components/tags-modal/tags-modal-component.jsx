@@ -26,7 +26,6 @@ function TagsModal({ tags, cat }) {
 	};
 
 	useEffect(() => {
-		console.log(fetchTags);
 		dispatch(fetchTags());
 	}, []);
 

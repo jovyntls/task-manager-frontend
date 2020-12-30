@@ -30,7 +30,7 @@ const Services = {
 	fetchCats() {
 		return Api().get("cats");
 	},
-	addNewCard(params) {
+	addNewCat(params) {
 		return Api().post("cats", params);
 	},
 	deleteCard(id) {

@@ -1,18 +1,19 @@
 import "src/App.css";
 import PostService from "src/services/PostService";
 import React, { useState, useEffect } from "react";
-import Card from "./Card";
+import Card from "../Card";
 import StackGrid from "react-stack-grid";
-import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { SizeMe } from "react-sizeme";
+import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
+import { useDispatch } from "react-redux";
+import { fetchCats, addNewCat } from "./board-reducer";
 
-function BoardView() {
-	const [cats, setCats] = useState([]);
-	const [tags, setTags] = useState({});
+function BoardView({ cats, tags }) {
+	const dispatch = useDispatch();
+
 	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({}); // change to the whole cat
 	const [board_refresh, setBoardRefresh] = useState(0);
 	const [waterfall, setWaterfall] = useState([]);
-	const [layout_refresh, setLayoutRefresh] = useState(0);
 
 	const isValidArray = (data) => {
 		return Array.isArray(data) && data.length !== 0;
@@ -20,37 +21,16 @@ function BoardView() {
 
 	const refreshBoard = () => {
 		setBoardRefresh((board_refresh) => board_refresh + 1);
-		fetchCards();
+		dispatch(fetchCats());
 	};
 	const refreshLayout = () => {
 		waterfall[0].updateLayout();
 	};
-	const refreshTags = () => {
-		fetchTags();
-	};
 
-	// API calls for tags
-	const fetchTags = () => {
-		PostService.fetchTags()
-			.then((response) => {
-				const tags = {};
-				response.data.forEach((item) => (tags[item.id] = item.title));
-				setTags(tags);
-			})
-			.catch((err) => console.log(err));
-	};
 	const editTags = (cat) => {
 		setEditTagsActiveCat(cat);
 	};
-	// API calls for editing categories
-	const fetchCards = () => {
-		PostService.fetchCats()
-			.then((response) => {
-				setCats(response.data);
-			})
-			.then(setLayoutRefresh(layout_refresh + 1))
-			.catch((err) => console.log(err));
-	};
+
 	const showCards = () => {
 		return isValidArray(cats)
 			? cats.map((cat) => (
@@ -67,13 +47,11 @@ function BoardView() {
 			: "";
 	};
 	const newCard = () => {
-		PostService.addNewCard({ title: "" });
-		refreshBoard();
+		dispatch(addNewCat({ title: "" }));
 	};
 
 	useEffect(() => {
-		fetchTags();
-		fetchCards();
+		dispatch(fetchCats());
 	}, [board_refresh]);
 
 	return (
