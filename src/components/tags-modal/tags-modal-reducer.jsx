@@ -1,17 +1,22 @@
 import PostService from "src/services/PostService";
 
-export default function tagsModalReducer(tags = [], action) {
+export default function tagsModalReducer(tags = { names: {}, item_tags: [] }, action) {
 	switch (action.type) {
 		case "FETCH_TAGS": {
-			tags = action.payload;
-			return { ...tags } ?? [];
+			tags.names = action.payload;
+			return { ...tags } ?? tags;
+		}
+		case "item_tags/get": {
+			tags.item_tags = action.payload;
+			console.log(tags);
+			return { ...tags } ?? tags;
 		}
 		case "tags/post": {
-			tags[action.payload.id] = action.payload.title;
+			tags.names[action.payload.id] = action.payload.title;
 			return { ...tags };
 		}
 		case "tags/delete": {
-			delete tags[action.payload.id];
+			delete tags.names[action.payload.id];
 			return { ...tags };
 		}
 		default:
@@ -29,6 +34,28 @@ export function fetchTags() {
 			})
 			.then((res) => {
 				dispatch({ type: "FETCH_TAGS", payload: res });
+			})
+			.then((res) => fetchItemTags())
+			.catch((err) => console.log(err));
+		PostService.fetchItemTags()
+			.then((response) => {
+				return response.data.map((item) => ({ cat_id: item.cat_id, tag_id: item.tag_id }));
+			})
+			.then((res) => {
+				dispatch({ type: "item_tags/get", payload: res });
+			})
+			.catch((err) => console.log(err));
+	};
+}
+
+export function fetchItemTags() {
+	return async function fetchItemTagsThunk(dispatch, getState) {
+		PostService.fetchItemTags()
+			.then((response) => {
+				return response.data;
+			})
+			.then((res) => {
+				dispatch({ type: "item_tags/get", payload: res });
 			})
 			.catch((err) => console.log(err));
 	};

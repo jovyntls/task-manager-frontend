@@ -1,9 +1,8 @@
 import "src/App.css";
-import PostService from "src/services/PostService";
 import React, { useState, useEffect } from "react";
-import Card from "../Card";
 import StackGrid from "react-stack-grid";
 import { SizeMe } from "react-sizeme";
+import { CardContainer } from "./card/card-container";
 import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { useDispatch } from "react-redux";
 import { fetchCats, addNewCat } from "./board-reducer";
@@ -32,20 +31,15 @@ function BoardView({ cats, tags }) {
 	};
 
 	const showCards = () => {
+		cats.forEach((cat) => (cat.tags = []));
+		tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
 		return isValidArray(cats)
 			? cats.map((cat) => (
-					<Card
-						key={cat.id}
-						cat={cat}
-						tags={tags}
-						editTags={editTags}
-						refresher={refreshBoard}
-						refreshLayout={refreshLayout}
-						refreshTags={board_refresh}
-					/>
+					<CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} refreshTags={board_refresh} />
 			  ))
 			: "";
 	};
+
 	const newCard = () => {
 		dispatch(addNewCat({ title: "" }));
 	};
@@ -59,9 +53,7 @@ function BoardView({ cats, tags }) {
 			{({ size }) => (
 				<div className="content">
 					<StackGrid
-						gridRef={(grid) => {
-							setWaterfall([grid]);
-						}}
+						gridRef={(grid) => setWaterfall([grid])}
 						columnWidth={size.width <= 930 ? (size.width <= 620 ? "100%" : "50%") : "33.33%"}
 						gutterWidth={10}
 						gutterHeight={10}

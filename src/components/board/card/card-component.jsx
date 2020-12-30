@@ -1,44 +1,38 @@
 import "src/App.css";
 import PostService from "src/services/PostService";
 import React, { useState, useEffect } from "react";
-import Task from "./Task";
-import NewTask from "./NewTask";
+import Task from "./task/task-component";
+import NewTask from "./task/NewTask";
 import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
+import { useDispatch } from "react-redux";
+import { deleteCat, editCat } from "../board-reducer";
 
-function Card(props) {
-	const [refresh, setRefresh] = useState(props.refreshTags);
+function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
+	const dispatch = useDispatch();
+
+	const [refresh, setRefresh] = useState(refreshTags);
 	const [tasks, setTasks] = useState([]);
-	const [title, setTitle] = useState(props.cat.title);
-	const [tags, setTags] = useState([]);
+	const [title, setTitle] = useState(cat.title);
 
 	const isValidArray = (data) => {
 		return !Array.isArray(data) || !data.length;
 	};
 
-	// API calls for tags
-	const getTags = () => {
-		PostService.fetchTagsFromCat({ cat_id: props.cat.id })
-			.then((response) => {
-				setTags(response.data);
-				props.refreshLayout();
-			})
-			.catch((err) => console.log(err));
-	};
 	const showTags = () => {
-		return tags.map((item, i) => <Tag title={props.tags[item.tag_id]} key={item.tag_id} />);
+		return cat.tags.map((tag_id) => <Tag title={tags[tag_id]} />);
 	};
 	const submitEditTags = () => {
-		props.editTags({ ...props.cat, tags: tags });
+		editTags(cat);
 	};
 
 	// API calls for editing tasks
 	const getTasks = () => {
-		PostService.fetchTasksFromCat(props.cat.id)
+		PostService.fetchTasksFromCat(cat.id)
 			.then((res) => {
 				setTasks(res.data);
-				props.refreshLayout();
+				refreshLayout();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -63,18 +57,15 @@ function Card(props) {
 	};
 	// API calls
 	const submitEdit = () => {
-		PostService.editCard({ id: props.cat.id, title: title }).catch((err) => console.log(err));
+		dispatch(editCat({ id: cat.id, title: title }));
 	};
 	const deleteCard = () => {
-		PostService.deleteCard(props.cat.id)
-			.then(() => props.refresher())
-			.catch((err) => console.log(err));
+		dispatch(deleteCat(cat.id));
 	};
 
 	useEffect(() => {
-		getTags();
 		getTasks();
-	}, [props.refreshTags, refresh]);
+	}, [refreshTags, refresh]);
 
 	return (
 		<div className="card my-card p-3">
@@ -82,7 +73,7 @@ function Card(props) {
 				<input
 					className="card__title flex-grow-1"
 					type="text"
-					defaultValue={props.cat.title}
+					defaultValue={cat.title}
 					placeholder="New Title"
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
@@ -106,7 +97,7 @@ function Card(props) {
 			<div className="mb-2">{showTags()}</div>
 			{showTasks(tasks)}
 
-			<NewTask cat_id={props.cat.id} refresher={refreshTasks} />
+			<NewTask cat_id={cat.id} refresher={refreshTasks} />
 		</div>
 	);
 }

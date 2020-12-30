@@ -1,9 +1,11 @@
 import "src/App.css";
 import React, { useState } from "react";
-import PostService from "src/services/PostService";
 import "src/components/stylesheets/task.scss";
+import { useDispatch } from "react-redux";
+import { addNewTask } from "../../board-reducer";
 
 function NewTask(props) {
+	const dispatch = useDispatch();
 	const [title, setTitle] = useState("");
 	const [priority, setPriority] = useState(0);
 
@@ -19,11 +21,7 @@ function NewTask(props) {
 		}
 	};
 	const submitEdit = () => {
-		PostService.addNewTask({ cat_id: props.cat_id, title: title, priority: priority })
-			.then((response) => {
-				return response;
-			})
-			.catch((err) => console.log(err));
+		dispatch(addNewTask({ cat_id: props.cat_id, title: title, priority: priority }));
 	};
 	const editPriority = () => {
 		setPriority((priority) => (priority + 1) % 3);

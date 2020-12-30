@@ -3,12 +3,11 @@ import TagsModal from "./tags-modal-component";
 
 const mapStateToProps = (state) => {
 	return {
-		tags: state.tagsModalReducer,
+		tags: state.tagsModalReducer.names,
 	};
 };
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// fetchTags: () => dispatch({ type: "FETCH_TAGS" }),
 		dispatch,
 	};
 };
