@@ -21,7 +21,7 @@ function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
 	};
 
 	const showTags = () => {
-		return cat.tags.map((tag_id) => <Tag title={tags[tag_id]} />);
+		return cat.tags.map((tag_id) => <Tag key={tag_id} title={tags[tag_id]} />);
 	};
 	const submitEditTags = () => {
 		editTags(cat);

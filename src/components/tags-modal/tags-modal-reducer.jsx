@@ -8,7 +8,6 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [] }, ac
 		}
 		case "item_tags/get": {
 			tags.item_tags = action.payload;
-			console.log(tags);
 			return { ...tags } ?? tags;
 		}
 		case "tags/post": {
@@ -17,6 +16,18 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [] }, ac
 		}
 		case "tags/delete": {
 			delete tags.names[action.payload.id];
+			return { ...tags };
+		}
+		case "item_tags/post": {
+			tags.item_tags.push({ cat_id: action.payload.cat_id, tag_id: action.payload.tag_id });
+			return { ...tags };
+		}
+		case "item_tags/delete": {
+			console.log(action.payload);
+			console.log(tags.item_tags);
+			tags.item_tags = tags.item_tags.filter(
+				(item) => item.cat_id !== action.payload.cat_id || item.tag_id !== action.payload.tag_id
+			);
 			return { ...tags };
 		}
 		default:
@@ -85,7 +96,7 @@ export function deleteItemTag(params) {
 	return async function deleteItemTagThunk(dispatch, getState) {
 		PostService.deleteItemTag(params)
 			.then((res) => {
-				return res;
+				dispatch({ type: "item_tags/delete", payload: params });
 			})
 			.catch((err) => console.log(err));
 	};
@@ -94,7 +105,7 @@ export function addItemTag(params) {
 	return async function addItemTagThunk(dispatch, getState) {
 		PostService.addItemTag(params)
 			.then((res) => {
-				return res;
+				dispatch({ type: "item_tags/post", payload: res.data });
 			})
 			.catch((err) => console.log(err));
 	};

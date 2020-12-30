@@ -8,7 +8,7 @@ function EditTag({ cat, title, id }) {
 	const dispatch = useDispatch();
 
 	const isTagged = () => {
-		return Boolean(cat.tags) && cat.tags.includes(parseInt(id));
+		return Boolean(cat.tags) && cat.tags.includes(id);
 	};
 
 	const [checked, setChecked] = useState(isTagged());

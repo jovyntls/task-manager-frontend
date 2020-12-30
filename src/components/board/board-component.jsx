@@ -32,7 +32,7 @@ function BoardView({ cats, tags }) {
 
 	const showCards = () => {
 		cats.forEach((cat) => (cat.tags = []));
-		tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
+		tags.item_tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
 		return isValidArray(cats)
 			? cats.map((cat) => (
 					<CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} refreshTags={board_refresh} />

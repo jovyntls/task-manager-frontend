@@ -3,7 +3,7 @@ import TagsModal from "./tags-modal-component";
 
 const mapStateToProps = (state) => {
 	return {
-		tags: state.tagsModalReducer.names,
+		tags: state.tagsModalReducer,
 	};
 };
 const mapDispatchToProps = (dispatch) => {

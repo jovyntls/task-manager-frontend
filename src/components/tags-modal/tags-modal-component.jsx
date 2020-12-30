@@ -40,9 +40,8 @@ function TagsModal({ tags, cat }) {
 				</button>
 			</div>
 			<div className="modal-body">
-				{/* {JSON.stringify(tags)} */}
-				{Object.keys(tags).map((item, i) => (
-					<EditTag cat={cat} title={tags[item]} id={item} key={i} />
+				{Object.keys(tags.names).map((item, i) => (
+					<EditTag cat={cat} title={tags.names[item]} id={parseInt(item)} key={i} />
 				))}
 				<em>Create a new tag:</em>
 				<input
