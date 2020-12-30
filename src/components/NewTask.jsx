@@ -1,7 +1,7 @@
-import "../App.css";
+import "src/App.css";
 import React, { useState } from "react";
-import PostService from "../services/PostService";
-import "./stylesheets/task.scss";
+import PostService from "src/services/PostService";
+import "src/components/stylesheets/task.scss";
 
 function NewTask(props) {
 	const [title, setTitle] = useState("");

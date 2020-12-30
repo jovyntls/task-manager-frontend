@@ -1,4 +1,4 @@
-import PostService from "../../services/PostService";
+import PostService from "src/services/PostService";
 
 export default function tagsModalReducer(tags = [], action) {
 	switch (action.type) {

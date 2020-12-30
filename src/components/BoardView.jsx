@@ -1,9 +1,9 @@
-import "../App.css";
-import PostService from "../services/PostService";
+import "src/App.css";
+import PostService from "src/services/PostService";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import StackGrid from "react-stack-grid";
-import { TagsModalContainer } from "./tags-modal/tags-modal-container";
+import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { SizeMe } from "react-sizeme";
 
 function BoardView() {

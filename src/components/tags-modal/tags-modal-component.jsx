@@ -1,6 +1,6 @@
-import "../../App.css";
+import "src/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../stylesheets/card.scss";
+import "src/components/stylesheets/card.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewTag } from "./tags-modal-reducer";

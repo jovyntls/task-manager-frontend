@@ -1,11 +1,11 @@
-import "../App.css";
-import PostService from "../services/PostService";
+import "src/App.css";
+import PostService from "src/services/PostService";
 import React, { useState, useEffect } from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
 import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./stylesheets/card.scss";
+import "src/components/stylesheets/card.scss";
 
 function Card(props) {
 	const [refresh, setRefresh] = useState(props.refreshTags);

@@ -3,18 +3,17 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter, Switch } from "react-router-dom";
 import App from "./App";
-import LoginForm from "./components/authentication/LoginForm";
-import SignupForm from "./components/authentication/SignupForm";
+import LoginForm from "src/components/authentication/LoginForm";
+import SignupForm from "src/components/authentication/SignupForm";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { Provider } from "react-redux";
-import { store } from "./components/configure-store";
-import { Container } from "./components/tags/container";
+import { store } from "src/components/configure-store";
 
-import { fetchTags } from "./components/tags-modal/tags-modal-reducer";
+import { fetchTags } from "src/components/tags-modal/tags-modal-reducer";
 store.dispatch(fetchTags);
 
 const Wrapper = () => {
@@ -22,7 +21,6 @@ const Wrapper = () => {
 		<Provider store={store}>
 			{/* <React.StrictMode> */}
 			<BrowserRouter>
-				<Container />
 				<Switch>
 					<PrivateRoute exact path="/" component={App} />
 					<PublicRoute exact path="/login" component={LoginForm} />

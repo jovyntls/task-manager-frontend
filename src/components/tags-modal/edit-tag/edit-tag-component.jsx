@@ -1,6 +1,5 @@
-import "../../../App.css";
-import "../../stylesheets/taglist.scss";
-import PostService from "../../../services/PostService";
+import "src/App.css";
+import "src/components/stylesheets/taglist.scss";
 import React, { useEffect, useState } from "react";
 import { deleteTag, deleteItemTag, addItemTag } from "../tags-modal-reducer";
 import { useDispatch } from "react-redux";
