@@ -13,9 +13,6 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import { Provider } from "react-redux";
 import { store } from "src/components/configure-store";
 
-import { fetchTags } from "src/components/tags-modal/tags-modal-reducer";
-store.dispatch(fetchTags);
-
 const Wrapper = () => {
 	return (
 		<Provider store={store}>

@@ -19,18 +19,19 @@ export default function tagsModalReducer(tags = [], action) {
 	}
 }
 
-export async function fetchTags(dispatch, getState) {
-	console.log("state: ", getState());
-	PostService.fetchTags()
-		.then((response) => {
-			const fetched_tags = {};
-			response.data.forEach((item) => (fetched_tags[item.id] = item.title));
-			return fetched_tags;
-		})
-		.then((fetched_tags) => {
-			dispatch({ type: "FETCH_TAGS", payload: fetched_tags });
-		})
-		.catch((err) => console.log(err));
+export function fetchTags() {
+	return async function fetchTagsThunk(dispatch, getState) {
+		PostService.fetchTags()
+			.then((response) => {
+				const fetched_tags = {};
+				response.data.forEach((item) => (fetched_tags[item.id] = item.title));
+				return fetched_tags;
+			})
+			.then((res) => {
+				dispatch({ type: "FETCH_TAGS", payload: res });
+			})
+			.catch((err) => console.log(err));
+	};
 }
 
 export function addNewTag(title) {
@@ -63,8 +64,8 @@ export function deleteItemTag(params) {
 	};
 }
 export function addItemTag(params) {
-	return async function deleteItemTagThunk(dispatch, getState) {
-		PostService.deleteItemTag(params)
+	return async function addItemTagThunk(dispatch, getState) {
+		PostService.addItemTag(params)
 			.then((res) => {
 				return res;
 			})

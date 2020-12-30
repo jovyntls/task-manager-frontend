@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchTags: () => dispatch({ type: "FETCH_TAGS" }),
+		// fetchTags: () => dispatch({ type: "FETCH_TAGS" }),
+		dispatch,
 	};
 };
 

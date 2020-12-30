@@ -3,10 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewTag } from "./tags-modal-reducer";
+import { addNewTag, fetchTags } from "./tags-modal-reducer";
 import EditTag from "./edit-tag/edit-tag-component";
 
-function TagsModal({ tags, fetchTags, cat }) {
+function TagsModal({ tags, cat }) {
 	const dispatch = useDispatch();
 	const [newTag, setNewTag] = useState("");
 
@@ -26,7 +26,8 @@ function TagsModal({ tags, fetchTags, cat }) {
 	};
 
 	useEffect(() => {
-		fetchTags();
+		console.log(fetchTags);
+		dispatch(fetchTags());
 	}, []);
 
 	return (
