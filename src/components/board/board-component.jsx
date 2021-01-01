@@ -6,6 +6,7 @@ import { CardContainer } from "./card/card-container";
 import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCats, addNewCat } from "./board-reducer";
+import RefreshWaterfall from "./layout-refresher/waterfall-refresh-component";
 
 function BoardView({ cats }) {
 	const dispatch = useDispatch();
@@ -20,10 +21,6 @@ function BoardView({ cats }) {
 		return Array.isArray(data) && data.length !== 0;
 	};
 
-	const refreshBoard = () => {
-		setBoardRefresh((board_refresh) => board_refresh + 1);
-		dispatch(fetchCats());
-	};
 	const refreshLayout = () => {
 		waterfall[0].updateLayout();
 	};
@@ -86,6 +83,7 @@ function BoardView({ cats }) {
 							<TagsModalContainer cat={edit_tags_active_cat} />
 						</div>
 					</div>
+					<RefreshWaterfall refresher={refreshLayout} waterfall={waterfall} />
 				</div>
 			)}
 		</SizeMe>

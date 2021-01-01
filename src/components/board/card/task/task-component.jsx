@@ -49,7 +49,7 @@ function Task(props) {
 	};
 
 	const submitDelete = () => {
-		dispatch(deleteTask(props.data.id));
+		dispatch(deleteTask({ id: props.data.id, cat_id: props.data.cat_id }));
 		props.refresher();
 	};
 

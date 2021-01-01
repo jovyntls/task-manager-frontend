@@ -13,6 +13,20 @@ export default function boardReducer(cats = [], action) {
 		case "cats/delete": {
 			return cats.filter((cat) => cat.id !== action.payload.id);
 		}
+		case "tasks/get": {
+			cats.forEach((cat) => (cat.tasks = action.payload.filter((task) => task.cat_id === cat.id)));
+			return [...cats];
+		}
+		case "tasks/post": {
+			const cat_to_update = cats.find((cat) => cat.id === action.payload.cat_id);
+			cat_to_update.tasks = [...cat_to_update.tasks, action.payload];
+			return cats;
+		}
+		case "tasks/delete": {
+			const cat_to_update = cats.find((cat) => cat.id === action.payload.cat_id);
+			cat_to_update.tasks = cat_to_update.tasks.filter((task) => task.id !== action.payload.id);
+			return cats;
+		}
 		default:
 			return cats;
 	}
@@ -22,8 +36,7 @@ export default function boardReducer(cats = [], action) {
 export function fetchCats() {
 	return async function fetchCatsThunk(dispatch, getState) {
 		PostService.fetchCats()
-			.then((response) => response.data)
-			.then((res) => dispatch({ type: "cats/get", payload: res }))
+			.then((res) => dispatch({ type: "cats/get", payload: res.data }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -51,10 +64,19 @@ export function editCat(params) {
 }
 
 // CRUD for Tasks
+export function fetchTasks() {
+	return async function fetchTasksThunk(dispatch, getState) {
+		PostService.fetchTasks()
+			.then((res) => dispatch({ type: "tasks/get", payload: res.data }))
+			.catch((err) => console.log(err));
+	};
+}
+
 export function addNewTask(params) {
 	return async function addNewTaskThunk(dispatch, getState) {
 		PostService.addNewTask(params)
 			.then((res) => dispatch({ type: "tasks/post", payload: res.data }))
+			.then((res) => dispatch({ type: "refresh_layout" }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -65,10 +87,11 @@ export function editTask(params) {
 	};
 }
 
-export function deleteTask(id) {
+export function deleteTask(params) {
 	return async function deleteTaskThunk(dispatch, getState) {
-		PostService.deleteTask(id)
-			.then((res) => dispatch({ type: "tasks/delete", payload: { id } }))
+		PostService.deleteTask(params.id)
+			.then((res) => dispatch({ type: "tasks/delete", payload: { id: params.id, cat_id: params.cat_id } }))
+			.then((res) => dispatch({ type: "refresh_layout" }))
 			.catch((err) => console.log(err));
 	};
 }
