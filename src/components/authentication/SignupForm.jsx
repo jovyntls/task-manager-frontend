@@ -30,6 +30,12 @@ function LoginForm(props) {
 			});
 	};
 
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			handleSignup();
+		}
+	};
+
 	return (
 		<div className="container auth__wrapper">
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -40,11 +46,11 @@ function LoginForm(props) {
 				</small>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">account_circle</i>
-					<input className="form-control" placeholder="Username" type="text" {...username} />
+					<input className="form-control" placeholder="Username" type="text" onKeyDown={handleKeyDown} {...username} />
 				</div>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">lock</i>
-					<input className="form-control" placeholder="Password" type="password" {...password} />
+					<input className="form-control" placeholder="Password" type="password" onKeyDown={handleKeyDown} {...password} />
 				</div>
 				{error && (
 					<>

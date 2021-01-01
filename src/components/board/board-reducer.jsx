@@ -7,6 +7,7 @@ export default function boardReducer(cats = [], action) {
 			return [...cats] ?? [];
 		}
 		case "cats/post": {
+			action.payload.tasks = []; // prevents error of tasks undefined
 			cats.push(action.payload);
 			return [...cats];
 		}
@@ -37,6 +38,7 @@ export function fetchCats() {
 	return async function fetchCatsThunk(dispatch, getState) {
 		PostService.fetchCats()
 			.then((res) => dispatch({ type: "cats/get", payload: res.data }))
+			.then(dispatch({ type: "tasks/get" }))
 			.catch((err) => console.log(err));
 	};
 }
