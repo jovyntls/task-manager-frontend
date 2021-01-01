@@ -28,14 +28,14 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [], sele
 			);
 			return tags;
 		}
-		case "select_tags": {
+		case "select_tag": {
 			tags.selected = tags.selected.includes(action.payload)
 				? tags.selected.filter((tag) => tag !== action.payload)
-				: (tags.selected = [...tags.selected, action.payload]);
+				: [...tags.selected, action.payload];
 			return tags;
 		}
 		case "select_all_tags": {
-			tags.selected = action.payload;
+			tags.selected = tags.selected.includes(-1) ? [-1, ...action.payload] : action.payload;
 			return tags;
 		}
 		default:

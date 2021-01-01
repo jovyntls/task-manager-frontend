@@ -5,7 +5,7 @@ function TagSelect(props) {
 	const dispatch = useDispatch();
 
 	const toggleSelect = () => {
-		dispatch({ type: "select_tags", payload: props.id });
+		dispatch({ type: "select_tag", payload: props.id });
 	};
 
 	return (
