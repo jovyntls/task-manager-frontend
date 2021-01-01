@@ -1,14 +1,14 @@
 import "src/App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Task from "./task/task-component";
 import NewTask from "./task/NewTask";
 import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCat, editCat, fetchTasks } from "../board-reducer";
+import { deleteCat, editCat } from "../board-reducer";
 
-function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
+function Card({ cat, tags, editTags }) {
 	const dispatch = useDispatch();
 	const tasks =
 		useSelector((state) => {
@@ -16,7 +16,6 @@ function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
 			return this_cat == undefined ? [] : this_cat.tasks;
 		}) ?? [];
 
-	const [refresh, setRefresh] = useState(refreshTags);
 	const [title, setTitle] = useState(cat.title);
 
 	const isValidArray = (data) => {
@@ -31,11 +30,7 @@ function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
 	};
 
 	const showTasks = (data) => {
-		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} refresher={refreshLayout} />);
-	};
-	const refreshTasks = () => {
-		setRefresh((refresh) => refresh + 1);
-		dispatch({ type: "tasks/get" });
+		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} />);
 	};
 
 	// for editing categories
@@ -54,10 +49,6 @@ function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
 	const deleteCard = () => {
 		dispatch(deleteCat(cat.id));
 	};
-
-	useEffect(() => {
-		dispatch(fetchTasks());
-	}, [refreshTags, refresh]);
 
 	return (
 		<div className="card my-card p-3">
@@ -89,7 +80,7 @@ function Card({ cat, tags, editTags, refreshLayout, refreshTags }) {
 			<div className="mb-2">{showTags()}</div>
 			{showTasks(tasks)}
 
-			<NewTask cat_id={cat.id} refresher={refreshTasks} />
+			<NewTask cat_id={cat.id} />
 		</div>
 	);
 }

@@ -7,9 +7,7 @@ import { useDispatch } from "react-redux";
 function EditTag({ cat, title, id }) {
 	const dispatch = useDispatch();
 
-	const isTagged = () => {
-		return Boolean(cat.tags) && cat.tags.includes(id);
-	};
+	const isTagged = () => Boolean(cat.tags) && cat.tags.includes(id);
 
 	const [checked, setChecked] = useState(isTagged());
 
@@ -23,9 +21,7 @@ function EditTag({ cat, title, id }) {
 		}
 	};
 
-	const submitDeleteTag = () => {
-		dispatch(deleteTag(id));
-	};
+	const submitDeleteTag = () => dispatch(deleteTag(id));
 
 	useEffect(() => {
 		setChecked(isTagged());

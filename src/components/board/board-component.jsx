@@ -5,7 +5,7 @@ import { SizeMe } from "react-sizeme";
 import { CardContainer } from "./card/card-container";
 import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCats, addNewCat } from "./board-reducer";
+import { fetchCats, addNewCat, fetchTasks } from "./board-reducer";
 import RefreshWaterfall from "./layout-refresher/waterfall-refresh-component";
 
 function BoardView({ cats }) {
@@ -13,21 +13,12 @@ function BoardView({ cats }) {
 	const item_tags = useSelector((state) => state.tagsModalReducer.item_tags);
 	const selected_tags = useSelector((state) => state.tagsModalReducer.selected);
 
-	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({}); // change to the whole cat
-	const [board_refresh, setBoardRefresh] = useState(0);
+	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({});
 	const [waterfall, setWaterfall] = useState([]);
 
-	const isValidArray = (data) => {
-		return Array.isArray(data) && data.length !== 0;
-	};
+	const refreshLayout = () => waterfall[0].updateLayout();
 
-	const refreshLayout = () => {
-		waterfall[0].updateLayout();
-	};
-
-	const editTags = (cat) => {
-		setEditTagsActiveCat(cat);
-	};
+	const editTags = (cat) => setEditTagsActiveCat(cat);
 
 	const is_filteredByTags = (cat) => {
 		return selected_tags.length === 0
@@ -41,20 +32,15 @@ function BoardView({ cats }) {
 		cats.forEach((cat) => (cat.tags = []));
 		item_tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
 		cats = cats.filter(is_filteredByTags);
-		return isValidArray(cats)
-			? cats.map((cat) => (
-					<CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} refreshTags={board_refresh} />
-			  ))
-			: "";
+		return cats.map((cat) => <CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} />);
 	};
 
-	const newCard = () => {
-		dispatch(addNewCat({ title: "" }));
-	};
+	const newCard = () => dispatch(addNewCat({ title: "" }));
 
 	useEffect(() => {
 		dispatch(fetchCats());
-	}, [board_refresh]);
+		dispatch(fetchTasks());
+	}, []);
 
 	return (
 		<SizeMe>
@@ -71,18 +57,7 @@ function BoardView({ cats }) {
 							<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
 						</button>
 					</StackGrid>
-					<div
-						className="modal fade edit-tags-modal"
-						id="edit-tags-modal"
-						tabIndex="-1"
-						role="dialog"
-						aria-labelledby="exampleModalLabel"
-						aria-hidden="true"
-					>
-						<div className="modal-dialog" role="document">
-							<TagsModalContainer cat={edit_tags_active_cat} />
-						</div>
-					</div>
+					<TagsModalContainer cat={edit_tags_active_cat} />
 					<RefreshWaterfall refresher={refreshLayout} waterfall={waterfall} />
 				</div>
 			)}

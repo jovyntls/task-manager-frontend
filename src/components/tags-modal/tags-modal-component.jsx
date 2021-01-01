@@ -30,34 +30,44 @@ function TagsModal({ tags, cat }) {
 	}, []);
 
 	return (
-		<div className="modal-content">
-			<div className="modal-header">
-				<h4 className="modal-title" id="exampleModalLabel">
-					{cat.title}
-				</h4>
-				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div className="modal-body">
-				{Object.keys(tags.names).map((item, i) => (
-					<EditTag cat={cat} title={tags.names[item]} id={parseInt(item)} key={i} />
-				))}
-				<em>Create a new tag:</em>
-				<input
-					className="flex-grow-1 ml-1"
-					type="text"
-					placeholder="Your tag"
-					value={newTag}
-					onChange={handleChange}
-					onKeyDown={handleKeyDown}
-				></input>
-			</div>
-			<div className="modal-footer">
-				<button type="button" className="btn btn-secondary" data-dismiss="modal">
-					{/* <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.refresher}> */}
-					Close
-				</button>
+		<div
+			className="modal fade edit-tags-modal"
+			id="edit-tags-modal"
+			tabIndex="-1"
+			role="dialog"
+			aria-labelledby="editTagsModalLabel"
+			aria-hidden="true"
+		>
+			<div className="modal-dialog" role="document">
+				<div className="modal-content">
+					<div className="modal-header">
+						<h4 className="modal-title" id="editTagsModalLabel">
+							{cat.title}
+						</h4>
+						<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div className="modal-body">
+						{Object.keys(tags.names).map((item, i) => (
+							<EditTag cat={cat} title={tags.names[item]} id={parseInt(item)} key={i} />
+						))}
+						<em>Create a new tag:</em>
+						<input
+							className="flex-grow-1 ml-1"
+							type="text"
+							placeholder="Your tag"
+							value={newTag}
+							onChange={handleChange}
+							onKeyDown={handleKeyDown}
+						></input>
+					</div>
+					<div className="modal-footer">
+						<button type="button" className="btn btn-secondary" data-dismiss="modal">
+							Close
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
