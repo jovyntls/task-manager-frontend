@@ -1,6 +1,6 @@
 import PostService from "src/services/PostService";
 
-export default function tagsModalReducer(tags = { names: {}, item_tags: [] }, action) {
+export default function tagsModalReducer(tags = { names: {}, item_tags: [], selected: [] }, action) {
 	switch (action.type) {
 		case "FETCH_TAGS": {
 			tags.names = action.payload;
@@ -19,16 +19,24 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [] }, ac
 			return { ...tags };
 		}
 		case "item_tags/post": {
-			tags.item_tags.push({ cat_id: action.payload.cat_id, tag_id: action.payload.tag_id });
-			return { ...tags };
+			tags.item_tags = [...tags.item_tags, { cat_id: action.payload.cat_id, tag_id: action.payload.tag_id }];
+			return tags;
 		}
 		case "item_tags/delete": {
-			console.log(action.payload);
-			console.log(tags.item_tags);
 			tags.item_tags = tags.item_tags.filter(
 				(item) => item.cat_id !== action.payload.cat_id || item.tag_id !== action.payload.tag_id
 			);
-			return { ...tags };
+			return tags;
+		}
+		case "select_tags": {
+			tags.selected = tags.selected.includes(action.payload)
+				? tags.selected.filter((tag) => tag !== action.payload)
+				: (tags.selected = [...tags.selected, action.payload]);
+			return tags;
+		}
+		case "select_all_tags": {
+			tags.selected = action.payload;
+			return tags;
 		}
 		default:
 			return tags;
@@ -43,18 +51,14 @@ export function fetchTags() {
 				response.data.forEach((item) => (fetched_tags[item.id] = item.title));
 				return fetched_tags;
 			})
-			.then((res) => {
-				dispatch({ type: "FETCH_TAGS", payload: res });
-			})
+			.then((res) => dispatch({ type: "FETCH_TAGS", payload: res }))
 			.then((res) => fetchItemTags())
 			.catch((err) => console.log(err));
 		PostService.fetchItemTags()
 			.then((response) => {
 				return response.data.map((item) => ({ cat_id: item.cat_id, tag_id: item.tag_id }));
 			})
-			.then((res) => {
-				dispatch({ type: "item_tags/get", payload: res });
-			})
+			.then((res) => dispatch({ type: "item_tags/get", payload: res }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -62,12 +66,8 @@ export function fetchTags() {
 export function fetchItemTags() {
 	return async function fetchItemTagsThunk(dispatch, getState) {
 		PostService.fetchItemTags()
-			.then((response) => {
-				return response.data;
-			})
-			.then((res) => {
-				dispatch({ type: "item_tags/get", payload: res });
-			})
+			.then((response) => response.data)
+			.then((res) => dispatch({ type: "item_tags/get", payload: res }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -75,9 +75,7 @@ export function fetchItemTags() {
 export function addNewTag(title) {
 	return async function addNewTagThunk(dispatch, getState) {
 		PostService.addNewTag({ title: title })
-			.then((res) => {
-				dispatch({ type: "tags/post", payload: res.data });
-			})
+			.then((res) => dispatch({ type: "tags/post", payload: res.data }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -85,9 +83,7 @@ export function addNewTag(title) {
 export function deleteTag(id) {
 	return async function deleteTagThunk(dispatch, getState) {
 		PostService.deleteTag(id)
-			.then((res) => {
-				dispatch({ type: "tags/delete", payload: { id } });
-			})
+			.then((res) => dispatch({ type: "tags/delete", payload: { id } }))
 			.catch((err) => console.log(err));
 	};
 }
@@ -95,18 +91,14 @@ export function deleteTag(id) {
 export function deleteItemTag(params) {
 	return async function deleteItemTagThunk(dispatch, getState) {
 		PostService.deleteItemTag(params)
-			.then((res) => {
-				dispatch({ type: "item_tags/delete", payload: params });
-			})
+			.then((res) => dispatch({ type: "item_tags/delete", payload: params }))
 			.catch((err) => console.log(err));
 	};
 }
 export function addItemTag(params) {
 	return async function addItemTagThunk(dispatch, getState) {
 		PostService.addItemTag(params)
-			.then((res) => {
-				dispatch({ type: "item_tags/post", payload: res.data });
-			})
+			.then((res) => dispatch({ type: "item_tags/post", payload: res.data }))
 			.catch((err) => console.log(err));
 	};
 }

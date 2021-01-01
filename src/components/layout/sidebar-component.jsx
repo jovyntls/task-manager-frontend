@@ -2,9 +2,12 @@ import "../../App.css";
 import "../stylesheets/sidebar.scss";
 import { removeUserSession } from "../../Utils/Common";
 import { useHistory } from "react-router-dom";
+import TagSelect from "./select-tags/tag-select";
+import SelectAllTags from "./select-tags/select-all-tags";
 
-function SideBar() {
+function SideBar({ tags }) {
 	const history = useHistory();
+
 	const logout = () => {
 		removeUserSession();
 		history.push("/login");
@@ -20,21 +23,20 @@ function SideBar() {
 			</div>
 			<hr />
 			TODO: create this sidebar
-			{/* <h5>Sort by:</h5>
+			<h5>Sort by:</h5>
 			<ul>
 				<li>created time</li>
 				<li>priority</li>
 			</ul>
 			<hr />
-			<h5>Show tags:</h5>
-			<span className="form-check ml-1">
-				<input type="checkbox" className="form-check-input" />
-				<label className="form-check-label">Select all</label>
-			</span>
-			<span className="form-check ml-1">
-				<input type="checkbox" className="form-check-input" />
-				<label className="form-check-label">something</label>
-			</span> */}
+			<h5>Filter tags:</h5>
+			<SelectAllTags />
+			<div className="ml-3">
+				{Object.keys(tags.names).map((tag_id, i) => (
+					<TagSelect title={tags.names[tag_id]} key={tag_id} id={parseInt(tag_id)} />
+				))}
+			</div>
+			<TagSelect title="untagged" key={-1} id={-1} />
 		</nav>
 	);
 }

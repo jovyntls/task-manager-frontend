@@ -4,11 +4,13 @@ import StackGrid from "react-stack-grid";
 import { SizeMe } from "react-sizeme";
 import { CardContainer } from "./card/card-container";
 import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCats, addNewCat } from "./board-reducer";
 
-function BoardView({ cats, tags }) {
+function BoardView({ cats }) {
 	const dispatch = useDispatch();
+	const item_tags = useSelector((state) => state.tagsModalReducer.item_tags);
+	const selected_tags = useSelector((state) => state.tagsModalReducer.selected);
 
 	const [edit_tags_active_cat, setEditTagsActiveCat] = useState({}); // change to the whole cat
 	const [board_refresh, setBoardRefresh] = useState(0);
@@ -30,9 +32,18 @@ function BoardView({ cats, tags }) {
 		setEditTagsActiveCat(cat);
 	};
 
+	const is_filteredByTags = (cat) => {
+		return selected_tags.length === 0
+			? true
+			: cat.tags.length === 0
+			? selected_tags.includes(-1)
+			: cat.tags.filter((tag) => selected_tags.includes(tag)).length !== 0;
+	};
+
 	const showCards = () => {
 		cats.forEach((cat) => (cat.tags = []));
-		tags.item_tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
+		item_tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
+		cats = cats.filter(is_filteredByTags);
 		return isValidArray(cats)
 			? cats.map((cat) => (
 					<CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} refreshTags={board_refresh} />

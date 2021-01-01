@@ -3,7 +3,6 @@ import BoardView from "./board-component";
 
 const mapStateToProps = (state) => {
 	return {
-		tags: state.tagsModalReducer,
 		cats: state.boardReducer,
 	};
 };
