@@ -1,9 +1,11 @@
-import "../App.css";
+import "src/App.css";
 import React, { useEffect, useState } from "react";
-import PostService from "../services/PostService";
-import "./stylesheets/task.scss";
+import "src/components/stylesheets/task.scss";
+import { useDispatch } from "react-redux";
+import { editTask, deleteTask } from "../../board-reducer";
 
 function Task(props) {
+	const dispatch = useDispatch();
 	const [title, setTitle] = useState(props.data.title);
 	const [completed, setCompleted] = useState(props.data.completed);
 	const [priority, setPriority] = useState(props.data.priority);
@@ -33,25 +35,21 @@ function Task(props) {
 
 	// API calls
 	const submitEdit = () => {
-		PostService.editTask({ id: props.data.id, title: title }).catch((err) => console.log(err));
+		dispatch(editTask({ id: props.data.id, title: title }));
 	};
 
 	const submitCompleted = () => {
-		PostService.editTask({ id: props.data.id, completed: !completed }).catch((err) => console.log(err));
+		dispatch(editTask({ id: props.data.id, completed: !completed }));
 		setCompleted((completed) => !completed);
 	};
 
 	const submitPriority = () => {
-		PostService.editTask({ id: props.data.id, priority: (priority + 1) % 3 }).catch((err) => console.log(err));
+		dispatch(editTask({ id: props.data.id, priority: (priority + 1) % 3 }));
 		setPriority((priority) => (priority + 1) % 3);
 	};
 
 	const submitDelete = () => {
-		PostService.deleteTask(props.data.id)
-			.then(() => {
-				props.refresher();
-			})
-			.catch((err) => console.log(err));
+		dispatch(deleteTask({ id: props.data.id, cat_id: props.data.cat_id }));
 	};
 
 	useEffect(() => {

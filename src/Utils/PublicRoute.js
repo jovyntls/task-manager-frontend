@@ -4,9 +4,7 @@ import { getToken } from "./Common";
 
 // handle the public routes
 function PublicRoute({ component: Component, ...rest }) {
-	return (
-		<Route {...rest} render={(props) => (!getToken() ? <Component {...props} /> : <Redirect to={{ pathname: "/board" }} />)} />
-	);
+	return <Route {...rest} render={(props) => (!getToken() ? <Component {...props} /> : <Redirect to={{ pathname: "/" }} />)} />;
 }
 
 export default PublicRoute;

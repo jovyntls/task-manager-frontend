@@ -30,13 +30,13 @@ const Services = {
 	fetchCats() {
 		return Api().get("cats");
 	},
-	addNewCard(params) {
+	addNewCat(params) {
 		return Api().post("cats", params);
 	},
-	deleteCard(id) {
+	deleteCat(id) {
 		return Api().delete("cats/" + id);
 	},
-	editCard(params) {
+	editCat(params) {
 		return Api().put("cats/" + params.id, params);
 	},
 
@@ -52,6 +52,9 @@ const Services = {
 	},
 
 	// ITEM_TAGS
+	fetchItemTags() {
+		return Api().get("items_tags/");
+	},
 	fetchTagsFromCat(params) {
 		return Api().get("items_tags/by_cat/" + params.cat_id);
 	},

@@ -1,11 +1,14 @@
-import "../App.css";
+import "src/App.css";
 import React, { useState } from "react";
-import PostService from "../services/PostService";
-import "./stylesheets/task.scss";
+import "src/components/stylesheets/task.scss";
+import { useDispatch } from "react-redux";
+import { addNewTask } from "../../board-reducer";
 
 function NewTask(props) {
+	const dispatch = useDispatch();
 	const [title, setTitle] = useState("");
 	const [priority, setPriority] = useState(0);
+	const priority_map = ["low", "med", "high"];
 
 	const handleChange = (event) => {
 		setTitle(event.target.value);
@@ -15,25 +18,13 @@ function NewTask(props) {
 			submitEdit();
 			setTitle("");
 			setPriority(0);
-			props.refresher();
 		}
 	};
-	const submitEdit = () => {
-		PostService.addNewTask({ cat_id: props.cat_id, title: title, priority: priority })
-			.then((response) => {
-				return response;
-			})
-			.catch((err) => console.log(err));
-	};
-	const editPriority = () => {
-		setPriority((priority) => (priority + 1) % 3);
-	};
+	const submitEdit = () => dispatch(addNewTask({ cat_id: props.cat_id, title: title, priority: priority }));
+	const editPriority = () => setPriority((priority) => (priority + 1) % 3);
 
 	// css class helpers
-	const priorityClass = (prefix) => {
-		const priority_map = ["low", "med", "high"];
-		return prefix + " " + prefix + "--" + priority_map[priority];
-	};
+	const priorityClass = (prefix) => prefix + " " + prefix + "--" + priority_map[priority];
 
 	return (
 		<div className="d-flex">
