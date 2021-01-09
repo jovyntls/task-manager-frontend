@@ -6,7 +6,7 @@ function SelectAllTags() {
 	const all_tags = useSelector((state) => Object.keys(state.tagsModalReducer.names).map((id) => parseInt(id)));
 	const selected_tags = useSelector((state) => state.tagsModalReducer.selected);
 
-	const is_allSelected = () => all_tags.length === selected_tags.filter((x) => x >= 0).length;
+	const is_allSelected = () => all_tags.length === selected_tags.filter((x) => x >= 0).length && all_tags.length !== 0;
 	const is_noneSelected = () => selected_tags.filter((x) => x >= 0).length === 0;
 
 	const toggleSelectAll = () => {

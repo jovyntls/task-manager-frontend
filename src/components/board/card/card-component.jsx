@@ -18,11 +18,8 @@ function Card({ cat, tags, editTags }) {
 
 	const [title, setTitle] = useState(cat.title);
 
-	const isValidArray = (data) => {
-		return !Array.isArray(data) || !data.length;
-	};
-
 	const showTags = () => {
+		// dispatch({ type: "refresh_layout" });
 		return cat.tags.map((tag_id) => <Tag key={tag_id} title={tags[tag_id]} />);
 	};
 	const submitEditTags = () => {
@@ -30,7 +27,7 @@ function Card({ cat, tags, editTags }) {
 	};
 
 	const showTasks = (data) => {
-		return isValidArray(data) ? "" : data.map((item, i) => <Task data={item} key={i} />);
+		return data.map((item, i) => <Task data={item} key={i} />);
 	};
 
 	// for editing categories

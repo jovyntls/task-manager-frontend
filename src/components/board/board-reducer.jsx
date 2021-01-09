@@ -3,8 +3,8 @@ import PostService from "src/services/PostService";
 export default function boardReducer(cats = [], action) {
 	switch (action.type) {
 		case "cats/get": {
-			cats = action.payload;
-			return [...cats] ?? [];
+			console.log(action.payload);
+			return action.payload ?? [];
 		}
 		case "cats/post": {
 			action.payload.tasks = []; // prevents error of tasks undefined
@@ -12,11 +12,12 @@ export default function boardReducer(cats = [], action) {
 			return [...cats];
 		}
 		case "cats/delete": {
+			console.log(action.payload);
 			return cats.filter((cat) => cat.id !== action.payload.id);
 		}
 		case "tasks/get": {
 			cats.forEach((cat) => (cat.tasks = action.payload.filter((task) => task.cat_id === cat.id)));
-			return [...cats];
+			return cats;
 		}
 		case "tasks/post": {
 			const cat_to_update = cats.find((cat) => cat.id === action.payload.cat_id);
@@ -37,8 +38,12 @@ export default function boardReducer(cats = [], action) {
 export function fetchCats() {
 	return async function fetchCatsThunk(dispatch, getState) {
 		PostService.fetchCats()
-			.then((res) => dispatch({ type: "cats/get", payload: res.data }))
-			.then(dispatch({ type: "tasks/get" }))
+			.then((res) => {
+				dispatch({ type: "cats/get", payload: res.data });
+				PostService.fetchTasks()
+					.then((res) => dispatch({ type: "tasks/get", payload: res.data }))
+					.catch((err) => console.log(err));
+			})
 			.catch((err) => console.log(err));
 	};
 }

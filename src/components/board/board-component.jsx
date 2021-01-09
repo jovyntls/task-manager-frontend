@@ -30,16 +30,19 @@ function BoardView({ cats }) {
 
 	const showCards = () => {
 		cats.forEach((cat) => (cat.tags = []));
-		item_tags.forEach((relation) => cats.find((cat) => cat.id === relation.cat_id).tags.push(relation.tag_id));
+		item_tags.forEach((relation) => {
+			const cat = cats.find((cat) => cat.id === relation.cat_id);
+			if (cat !== undefined) cat.tags.push(relation.tag_id);
+		});
 		cats = cats.filter(is_filteredByTags);
-		return cats.map((cat) => <CardContainer key={cat.id} cat={cat} editTags={editTags} refreshLayout={refreshLayout} />);
+		return cats.map((cat) => <CardContainer key={cat.id} cat={cat} editTags={editTags} />);
 	};
 
 	const newCard = () => dispatch(addNewCat({ title: "" }));
 
 	useEffect(() => {
 		dispatch(fetchCats());
-		dispatch(fetchTasks());
+		// dispatch(fetchTasks());
 	}, []);
 
 	return (
