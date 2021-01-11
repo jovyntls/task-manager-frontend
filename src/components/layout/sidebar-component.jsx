@@ -19,17 +19,10 @@ function SideBar({ tags }) {
 			<button onClick={logout} href="/login">
 				sign out
 			</button>
-			<div className="sidebar-header">
-				<h3>Welcome</h3>
-			</div>
+			<div className="sidebar-header">{/* <h3>Welcome</h3> */}</div>
 			<hr />
-			TODO: create this sidebar
-			<h5>Sort by:</h5>
+			<h5>Sort tasks:</h5>
 			<SortOption />
-			<ul>
-				<li>created time</li>
-				<li>priority</li>
-			</ul>
 			<hr />
 			<h5>Filter tags:</h5>
 			<SelectAllTags />

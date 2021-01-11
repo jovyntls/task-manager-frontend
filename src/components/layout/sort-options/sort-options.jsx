@@ -4,13 +4,25 @@ function SortOption(props) {
 	// const is_selected = useSelector((state) => state.tagsModalReducer.selected.includes(props.id));
 	const dispatch = useDispatch();
 
-	const toggleSort = () => {
-		dispatch({ type: "tasks/sort", payload: { order: "DESC", sort: "created_at" } });
+	const toggleSort = (sort_by, ascending) => {
+		dispatch({ type: "tasks/sort", payload: { ascending: ascending, sort: sort_by } });
 	};
 
 	return (
 		<div>
-			<button onClick={toggleSort}>back sort</button>
+			<div className="btn-group" role="group">
+				<button
+					type="button"
+					className="btn btn-outline-secondary btn-sm"
+					onClick={() => toggleSort("created_at", true)}
+					active="true"
+				>
+					<i className="material-icons align-middle">schedule</i> Created
+				</button>
+				<button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => toggleSort("priority", false)}>
+					<i className="material-icons align-middle">new_releases</i> Priority
+				</button>
+			</div>
 		</div>
 	);
 }

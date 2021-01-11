@@ -29,7 +29,7 @@ function Card({ cat, tags, editTags }) {
 
 	const showTasks = () => {
 		let data = tasks.sort((a, b) => (a[sort_option.sort] > b[sort_option.sort] ? 1 : -1));
-		data = sort_option.order === "DESC" ? data.reverse() : data;
+		data = sort_option.ascending ? data : data.reverse();
 		return data.map((item, i) => <Task data={item} key={item.id} />);
 	};
 
