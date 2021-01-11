@@ -4,6 +4,7 @@ import { removeUserSession } from "../../Utils/Common";
 import { useHistory } from "react-router-dom";
 import TagSelect from "./select-tags/tag-select";
 import SelectAllTags from "./select-tags/select-all-tags";
+import SortOption from "./sort-options/sort-options";
 
 function SideBar({ tags }) {
 	const history = useHistory();
@@ -24,6 +25,7 @@ function SideBar({ tags }) {
 			<hr />
 			TODO: create this sidebar
 			<h5>Sort by:</h5>
+			<SortOption />
 			<ul>
 				<li>created time</li>
 				<li>priority</li>
