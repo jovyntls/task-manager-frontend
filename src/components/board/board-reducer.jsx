@@ -3,7 +3,6 @@ import PostService from "src/services/PostService";
 export default function boardReducer(cats = [], action) {
 	switch (action.type) {
 		case "cats/get": {
-			console.log(action.payload);
 			return action.payload ?? [];
 		}
 		case "cats/post": {
@@ -29,6 +28,9 @@ export default function boardReducer(cats = [], action) {
 			cat_to_update.tasks = cat_to_update.tasks.filter((task) => task.id !== action.payload.id);
 			return cats;
 		}
+		case "test/dispatch": {
+			action.payload.dispatch({ type: "refresh_layout" });
+		}
 		default:
 			return cats;
 	}
@@ -41,7 +43,10 @@ export function fetchCats() {
 			.then((res) => {
 				dispatch({ type: "cats/get", payload: res.data });
 				PostService.fetchTasks()
-					.then((res) => dispatch({ type: "tasks/get", payload: res.data }))
+					.then((res) => {
+						dispatch({ type: "tasks/get", payload: res.data });
+						dispatch({ type: "refresh_layout" });
+					})
 					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
