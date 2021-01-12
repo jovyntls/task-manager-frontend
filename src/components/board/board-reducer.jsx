@@ -28,9 +28,6 @@ export default function boardReducer(cats = [], action) {
 			cat_to_update.tasks = cat_to_update.tasks.filter((task) => task.id !== action.payload.id);
 			return cats;
 		}
-		case "test/dispatch": {
-			action.payload.dispatch({ type: "refresh_layout" });
-		}
 		default:
 			return cats;
 	}
