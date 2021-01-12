@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import "../../stylesheets/sidebar.scss";
 
-function SortOption(props) {
-	// const is_selected = useSelector((state) => state.tagsModalReducer.selected.includes(props.id));
+function SortOption() {
 	const dispatch = useDispatch();
 
 	const toggleSort = (sort_by, ascending) => {
@@ -17,10 +17,10 @@ function SortOption(props) {
 					onClick={() => toggleSort("created_at", true)}
 					active="true"
 				>
-					<i className="material-icons align-middle">schedule</i> Created
+					<i className="material-icons align-middle med-icon">schedule</i> Created
 				</button>
 				<button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => toggleSort("priority", false)}>
-					<i className="material-icons align-middle">new_releases</i> Priority
+					<i className="material-icons align-middle med-icon">new_releases</i> Priority
 				</button>
 			</div>
 		</div>

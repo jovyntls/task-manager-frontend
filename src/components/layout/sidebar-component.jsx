@@ -16,22 +16,23 @@ function SideBar({ tags }) {
 
 	return (
 		<nav id="sidebar" className="m-0">
-			<button onClick={logout} href="/login">
+			<a className="sign-out-button" onClick={logout} href="/login">
+				<i className="material-icons align-middle small-icon mr-1">exit_to_app</i>
 				sign out
-			</button>
+			</a>
 			<div className="sidebar-header">{/* <h3>Welcome</h3> */}</div>
 			<hr />
-			<h5>Sort tasks:</h5>
+			<h6>Sort:</h6>
 			<SortOption />
 			<hr />
-			<h5>Filter tags:</h5>
+			<h6>Filter:</h6>
 			<SelectAllTags />
 			<div className="ml-3">
 				{Object.keys(tags.names).map((tag_id, i) => (
 					<TagSelect title={tags.names[tag_id]} key={tag_id} id={parseInt(tag_id)} />
 				))}
 			</div>
-			<TagSelect title="untagged" key={-1} id={-1} />
+			<TagSelect title="Untagged" key={-1} id={-1} />
 		</nav>
 	);
 }
