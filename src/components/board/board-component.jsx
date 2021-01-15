@@ -38,7 +38,10 @@ function BoardView({ cats }) {
 		return cats.map((cat) => <CardContainer key={cat.id} cat={cat} editTags={editTags} />);
 	};
 
-	const newCard = () => dispatch(addNewCat({ title: "" }));
+	const newCard = () => {
+		dispatch(addNewCat({ title: "" }));
+		dispatch({ type: "select_tag", payload: -1 });
+	};
 
 	useEffect(() => {
 		dispatch(fetchCats());

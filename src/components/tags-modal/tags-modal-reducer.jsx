@@ -15,6 +15,7 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [], sele
 			return { ...tags };
 		}
 		case "tags/delete": {
+			tags.item_tags = tags.item_tags.filter((item) => item.tag_id !== action.payload.id);
 			delete tags.names[action.payload.id];
 			return { ...tags };
 		}
