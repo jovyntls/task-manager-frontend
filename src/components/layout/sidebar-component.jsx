@@ -1,6 +1,6 @@
-import "../../App.css";
-import "../stylesheets/sidebar.scss";
-import { removeUserSession } from "../../Utils/Common";
+import "src/App.css";
+import "src/components/stylesheets/sidebar.scss";
+import { removeUserSession } from "src/Utils/Common";
 import { useHistory } from "react-router-dom";
 import TagSelect from "./select-tags/tag-select";
 import SelectAllTags from "./select-tags/select-all-tags";

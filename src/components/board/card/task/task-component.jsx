@@ -2,7 +2,7 @@ import "src/App.css";
 import React, { useEffect, useState } from "react";
 import "src/components/stylesheets/task.scss";
 import { useDispatch } from "react-redux";
-import { editTask, deleteTask } from "../../board-reducer";
+import { editTask, deleteTask } from "src/reducers/board-reducer";
 
 function Task(props) {
 	const dispatch = useDispatch();

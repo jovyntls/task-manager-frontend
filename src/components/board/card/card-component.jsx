@@ -6,7 +6,7 @@ import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCat, editCat } from "../board-reducer";
+import { deleteCat, editCat } from "src/reducers/board-reducer";
 
 function Card({ cat, tags, editTags }) {
 	const dispatch = useDispatch();

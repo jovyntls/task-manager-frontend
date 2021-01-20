@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import PostService from "../../services/PostService";
-import { setUserSession } from "../../Utils/Common";
-import "../stylesheets/authentication.scss";
+import PostService from "src/services/PostService";
+import { setUserSession } from "src/Utils/Common";
+import "src/components/stylesheets/authentication.scss";
 
 function LoginForm(props) {
 	const [loading, setLoading] = useState(false);

@@ -2,7 +2,7 @@ import "src/App.css";
 import React, { useState } from "react";
 import "src/components/stylesheets/task.scss";
 import { useDispatch } from "react-redux";
-import { addNewTask } from "../../board-reducer";
+import { addNewTask } from "src/reducers/board-reducer";
 
 function NewTask(props) {
 	const dispatch = useDispatch();

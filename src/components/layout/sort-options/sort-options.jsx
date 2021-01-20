@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import "../../stylesheets/sidebar.scss";
+import "src/components/stylesheets/sidebar.scss";
 
 function SortOption() {
 	const dispatch = useDispatch();
