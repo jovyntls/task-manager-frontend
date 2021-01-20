@@ -40,7 +40,7 @@ function BoardView({ cats }) {
 
 	const newCard = () => {
 		dispatch(addNewCat({ title: "" }));
-		dispatch({ type: "select_tag", payload: -1 });
+		dispatch({ type: "deselect_all_tags" });
 	};
 
 	useEffect(() => {

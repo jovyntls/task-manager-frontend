@@ -39,6 +39,10 @@ export default function tagsModalReducer(tags = { names: {}, item_tags: [], sele
 			tags.selected = tags.selected.includes(-1) ? [-1, ...action.payload] : action.payload;
 			return tags;
 		}
+		case "deselect_all_tags": {
+			tags.selected = [];
+			return tags;
+		}
 		default:
 			return tags;
 	}
