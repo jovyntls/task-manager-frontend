@@ -32,7 +32,9 @@ function SelectAllTags() {
 				onChange={toggleSelectAll}
 				checked={is_allSelected()}
 			/>
-			<label className="form-check-label">All tagged</label>
+			<label className="form-check-label" htmlFor="select-all-checkbox">
+				All tagged
+			</label>
 		</span>
 	);
 }

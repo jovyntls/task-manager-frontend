@@ -10,8 +10,10 @@ function TagSelect(props) {
 
 	return (
 		<span className="form-check ml-1">
-			<input type="checkbox" className="form-check-input" checked={is_selected} onChange={toggleSelect} />
-			<label className="form-check-label">{props.title}</label>
+			<input type="checkbox" className="form-check-input" checked={is_selected} onChange={toggleSelect} id={props.title} />
+			<label className="form-check-label" htmlFor={props.title}>
+				{props.title}
+			</label>
 		</span>
 	);
 }

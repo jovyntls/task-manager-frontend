@@ -61,7 +61,12 @@ function Task(props) {
 			<button className={priorityClass("task__checkbox")} onClick={submitCompleted}>
 				<i className="material-icons align-middle">{completed ? "check_circle" : "radio_button_unchecked"}</i>
 			</button>
-			<button className={priorityClass("task__priority")} onClick={submitPriority} disabled={completed}></button>
+			<button
+				className={priorityClass("task__priority")}
+				onClick={submitPriority}
+				disabled={completed}
+				aria-label="toggle priority"
+			></button>
 			<textarea
 				rows="1"
 				className={`flex-grow-1 target-for-hover task__title ${completed ? "task__title--completed" : ""}`}
@@ -71,6 +76,7 @@ function Task(props) {
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				onBlur={submitEdit}
+				aria-label={props.data.title}
 			></textarea>
 			<button className="task__delete show-on-hover" onClick={submitDelete}>
 				<i className="material-icons align-middle">clear</i>

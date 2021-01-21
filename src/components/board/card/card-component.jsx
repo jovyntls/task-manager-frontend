@@ -61,6 +61,7 @@ function Card({ cat, tags, editTags }) {
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 					onBlur={submitEdit}
+					aria-label={cat.title}
 				></input>
 				<div className="dropdown">
 					<button className="menu__icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

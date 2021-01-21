@@ -46,11 +46,31 @@ function LoginForm(props) {
 				</small>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">account_circle</i>
-					<input className="form-control" placeholder="Username" type="text" onKeyDown={handleKeyDown} {...username} />
+					<label htmlFor="input-username" className="label__hidden">
+						Username
+					</label>
+					<input
+						id="input-username"
+						className="form-control"
+						placeholder="Username"
+						type="text"
+						onKeyDown={handleKeyDown}
+						{...username}
+					/>
 				</div>
 				<div className="d-flex align-items-center mt-2">
 					<i className="material-icons mr-2">lock</i>
-					<input className="form-control" placeholder="Password" type="password" onKeyDown={handleKeyDown} {...password} />
+					<label htmlFor="input-password" className="label__hidden">
+						Password
+					</label>
+					<input
+						id="input-password"
+						className="form-control"
+						placeholder="Password"
+						type="password"
+						onKeyDown={handleKeyDown}
+						{...password}
+					/>
 				</div>
 				{error && <small style={{ color: "red" }}>{error}</small>}
 				<br />

@@ -1,6 +1,7 @@
 import "src/App.css";
 import React, { useState } from "react";
 import "src/components/stylesheets/task.scss";
+import "src/App.css";
 import { useDispatch } from "react-redux";
 import { addNewTask } from "src/reducers/board-reducer";
 
@@ -31,7 +32,12 @@ function NewTask(props) {
 			<button className="task__checkbox" disabled>
 				<i className="material-icons align-middle">create</i>
 			</button>
-			<button className={priorityClass("task__priority")} onClick={editPriority} disabled={title === ""}></button>
+			<button
+				className={priorityClass("task__priority")}
+				onClick={editPriority}
+				disabled={title === ""}
+				aria-label="toggle priority"
+			></button>
 			<input
 				className="task__title flex-grow-1"
 				type="text"
@@ -39,6 +45,7 @@ function NewTask(props) {
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				placeholder="Add task"
+				aria-label="Add task"
 			></input>
 		</div>
 	);

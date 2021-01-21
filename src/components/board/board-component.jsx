@@ -60,7 +60,9 @@ function BoardView({ cats }) {
 					>
 						{showCards()}
 						<button className="new-card" onClick={newCard}>
-							<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+							<button disabled className="btn btn-link">
+								<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+							</button>
 						</button>
 					</StackGrid>
 					<TagsModalContainer cat={edit_tags_active_cat} />
