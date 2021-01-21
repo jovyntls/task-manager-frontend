@@ -2,9 +2,9 @@ import "src/App.css";
 
 function Tag(props) {
 	return (
-		<span className="badge badge-pill badge-secondary mr-1" style={{ opacity: 0.5 }}>
+		<button className="badge badge-pill badge-secondary mr-1" disabled style={{ border: "0px solid grey" }}>
 			{props.title}
-		</span>
+		</button>
 	);
 }
 export default Tag;

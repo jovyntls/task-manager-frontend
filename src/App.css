@@ -16,3 +16,9 @@ input::placeholder {
 	width: 100%;
 	padding: 10px 20px;
 }
+
+.label__hidden {
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+}

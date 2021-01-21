@@ -1,7 +1,7 @@
 import "src/App.css";
 import "src/components/stylesheets/taglist.scss";
 import React, { useEffect, useState } from "react";
-import { deleteTag, deleteItemTag, addItemTag } from "../tags-modal-reducer";
+import { deleteTag, deleteItemTag, addItemTag } from "src/reducers/tags-modal-reducer";
 import { useDispatch } from "react-redux";
 
 function EditTag({ cat, title, id }) {

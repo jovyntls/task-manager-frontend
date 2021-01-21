@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewTag, fetchTags } from "./tags-modal-reducer";
+import { addNewTag, fetchTags } from "src/reducers/tags-modal-reducer";
 import EditTag from "./edit-tag/edit-tag-component";
 
 function TagsModal({ tags, cat }) {

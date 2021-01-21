@@ -6,7 +6,7 @@ import Tag from "./Tag";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "src/components/stylesheets/card.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCat, editCat } from "../board-reducer";
+import { deleteCat, editCat } from "src/reducers/board-reducer";
 
 function Card({ cat, tags, editTags }) {
 	const dispatch = useDispatch();
@@ -61,6 +61,7 @@ function Card({ cat, tags, editTags }) {
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 					onBlur={submitEdit}
+					aria-label={cat.title}
 				></input>
 				<div className="dropdown">
 					<button className="menu__icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

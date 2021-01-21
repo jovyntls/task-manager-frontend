@@ -5,7 +5,7 @@ import { SizeMe } from "react-sizeme";
 import { CardContainer } from "./card/card-container";
 import { TagsModalContainer } from "src/components/tags-modal/tags-modal-container";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCats, addNewCat, fetchTasks } from "./board-reducer";
+import { fetchCats, addNewCat } from "src/reducers/board-reducer";
 import RefreshWaterfall from "./layout-refresher/waterfall-refresh-component";
 
 function BoardView({ cats }) {
@@ -60,7 +60,9 @@ function BoardView({ cats }) {
 					>
 						{showCards()}
 						<button className="new-card" onClick={newCard}>
-							<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+							<button disabled className="btn btn-link">
+								<i className="material-icons align-middle new-card__icon">add_circle_outline</i>
+							</button>
 						</button>
 					</StackGrid>
 					<TagsModalContainer cat={edit_tags_active_cat} />
