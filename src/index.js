@@ -16,7 +16,6 @@ import { store } from "src/components/configure-store";
 const Wrapper = () => {
 	return (
 		<Provider store={store}>
-			{/* <React.StrictMode> */}
 			<BrowserRouter>
 				<Switch>
 					<PrivateRoute exact path="/" component={App} />
@@ -24,14 +23,8 @@ const Wrapper = () => {
 					<PublicRoute exact path="/signup" component={SignupForm} />
 				</Switch>
 			</BrowserRouter>
-			{/* </React.StrictMode> */}
 		</Provider>
 	);
 };
 
 ReactDOM.render(<Wrapper />, document.getElementById("root"));
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

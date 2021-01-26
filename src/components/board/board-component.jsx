@@ -45,7 +45,6 @@ function BoardView({ cats }) {
 
 	useEffect(() => {
 		dispatch(fetchCats());
-		// dispatch(fetchTasks());
 	}, []);
 
 	return (

@@ -20,12 +20,8 @@ function Card({ cat, tags, editTags }) {
 
 	const [title, setTitle] = useState(cat.title);
 
-	const showTags = () => {
-		return cat.tags.map((tag_id) => <Tag key={tag_id} title={tags[tag_id]} />);
-	};
-	const submitEditTags = () => {
-		editTags(cat);
-	};
+	const showTags = () => cat.tags.map((tag_id) => <Tag key={tag_id} title={tags[tag_id]} />);
+	const submitEditTags = () => editTags(cat);
 
 	const showTasks = () => {
 		let data = tasks.sort((a, b) => (a[sort_option.sort] > b[sort_option.sort] ? 1 : -1));
@@ -74,7 +70,6 @@ function Card({ cat, tags, editTags }) {
 						<button className="dropdown-item" data-toggle="modal" data-target="#edit-tags-modal" onClick={submitEditTags}>
 							Edit tags
 						</button>
-						<button className="dropdown-item">Clear completed</button>
 					</div>
 				</div>
 			</div>

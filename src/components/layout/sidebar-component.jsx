@@ -20,7 +20,6 @@ function SideBar({ tags }) {
 				<i className="material-icons align-middle small-icon mr-1">exit_to_app</i>
 				sign out
 			</a>
-			<div className="sidebar-header">{/* <h3>Welcome</h3> */}</div>
 			<hr />
 			<h6>Sort:</h6>
 			<SortOption />

@@ -5,7 +5,6 @@ const mapStateToProps = (state) => {
 	return {
 		tags: state.tagsModalReducer.names,
 		item_tags: state.tagsModalReducer.item_tags,
-		// cat: state.boardReducer.find((x) => x.id === ownProps.cat_id),
 	};
 };
 const mapDispatchToProps = (dispatch) => {
